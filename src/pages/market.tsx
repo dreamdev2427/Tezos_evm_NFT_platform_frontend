@@ -6,7 +6,7 @@ import Loading from "../components/Loading";
 import NFTForSaleCard from "../components/nft/NFTForSaleCard";
 import type { ICollection, INFTListed } from "../types";
 import axios from "../config/axios";
-import Carousel from "../components/layout/carousel";
+import Carousel from "../components/layout/Carousel";
 import MarketBanner from "../components/market/MarketBanner";
 import TitleRow from "../components/layout/TitleRow";
 import LoadingText from "../components/LoadingText";

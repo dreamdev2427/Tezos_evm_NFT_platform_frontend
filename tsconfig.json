@@ -6,11 +6,7 @@
     "esModuleInterop": true,
     "outDir": "dist",
     "declaration": true,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
@@ -19,14 +15,11 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "paths": {
+      "@alias/*": ["src/*"]
+    }
   },
-  "include": [
-    "**/src/**/*.ts",
-    "**/test/**/*.ts",
-    ".eslintrc"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["**/src/**/*.ts", "**/test/**/*.ts", ".eslintrc"],
+  "exclude": ["node_modules"]
 }

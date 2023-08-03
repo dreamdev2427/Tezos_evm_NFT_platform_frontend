@@ -35,8 +35,8 @@ const Loading = (): JSX.Element => {
 
   return (
     <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 place-content-center overflow-hidden">
-      {Array.from({ length: nbItems }).map(() => (
-        <div className="flex justify-center p-3">
+      {Array.from({ length: nbItems }).map((item, index) => (
+        <div className="flex justify-center p-3" key={index}>
           <div className="w-4/5 bg-white rounded shadow-2xl">
             <div className="h-64 bg-gray-200 rounded-tr rounded-tl animate-pulse" />
 
