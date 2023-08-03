@@ -11,7 +11,7 @@ import CollectionCard from "../../components/collection/CollectionCard";
 import type { ICollection } from "../../types";
 import NotLogged from "../../components/NotLogged";
 import axios from "../../config/axios";
-import Carousel from "../../components/layout/carousel";
+import Carousel from "../../components/layout/Carousel";
 import TitleRow from "../../components/layout/TitleRow";
 import UserInfoBox from "../../components/user/UserInfoBox";
 import LikedNfts from "../../components/user/LikedNfts";

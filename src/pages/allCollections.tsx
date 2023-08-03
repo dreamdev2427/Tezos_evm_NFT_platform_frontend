@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Tab } from "@headlessui/react";
 import { SwiperSlide } from "swiper/react";
-import Carousel from "../components/layout/carousel";
+import Carousel from "../components/layout/Carousel";
 import NewCollection from "../components/collection/NewCollection";
 import type { ICollection } from "../types";
 import MarketBanner from "../components/market/MarketBanner";
