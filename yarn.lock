@@ -1677,10 +1677,10 @@
     "hoist-non-react-statics" "^3.3.0"
     "redux" "^4.0.0"
 
-"@types/react@*", "@types/react@^17.0.37":
-  "integrity" "sha512-mk0BL8zBinf2ozNr3qPnlu1oyVTYq+4V7WA76RgxUAtf0Em/Wbid38KN6n4abEkvO4xMTBWmnP1FtQzgkEiJoA=="
-  "resolved" "https://registry.npmjs.org/@types/react/-/react-17.0.47.tgz"
-  "version" "17.0.47"
+"@types/react@*", "@types/react@^18.0.1":
+  "integrity" "sha512-VnWlrVgG0dYt+NqlfMI0yUYb8Rdl4XUROyH+c6gq/iFCiZ805Vi//26UW38DHnxQkbDhnrIWTBiy6oKZqL11cw=="
+  "resolved" "https://registry.npmjs.org/@types/react/-/react-18.0.1.tgz"
+  "version" "18.0.1"
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -7134,7 +7134,7 @@
     "eth-gas-reporter" "^0.2.24"
     "sha1" "^1.1.1"
 
-"hardhat@^2.0.0", "hardhat@^2.0.10", "hardhat@^2.0.2", "hardhat@^2.0.4", "hardhat@^2.17.1":
+"hardhat@^2.0.0", "hardhat@^2.0.10", "hardhat@^2.0.2", "hardhat@^2.0.4", "hardhat@^2.8.4":
   "integrity" "sha512-1PxRkfjhEzXs/wDxI5YgzYBxNmvzifBTjYzuopwel+vXpAhCudplusJthN5eig0FTs4qbi828DBIITEDh8x9LA=="
   "resolved" "https://registry.npmjs.org/hardhat/-/hardhat-2.17.1.tgz"
   "version" "2.17.1"

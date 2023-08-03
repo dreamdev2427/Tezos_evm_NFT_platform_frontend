@@ -15,10 +15,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
-    "paths": {
-      "@alias/*": ["src/*"]
-    }
+    "jsx": "preserve"
   },
   "include": ["**/src/**/*.ts", "**/test/**/*.ts", ".eslintrc"],
   "exclude": ["node_modules"]
