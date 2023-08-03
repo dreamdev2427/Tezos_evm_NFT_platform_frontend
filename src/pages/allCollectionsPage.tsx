@@ -18,7 +18,7 @@ const allCollectionsPage = (): JSX.Element => {
       .then((response) => {
         setNewCollections(response.data);
       })
-      .catch((error) => window.alert(error.response.data.error))
+      .catch((error) => window.alert(error.response.data.error + ","))
       .finally(() => setNewCollectionsLoading(false));
   };
 
