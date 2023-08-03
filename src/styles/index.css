@@ -1,0 +1,116 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer components {
+  /** BUTTON*/
+  .btn-primary {
+    @apply z-10 py-6 px-10 w-fit text-2xl bg-zinc-800 text-white font-semibold rounded-md shadow-xl hover:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:ring-opacity-75 transition ease-in-out hover:scale-105;
+  }
+
+  .btn-primary-outlined {
+    @apply py-6 px-10 w-fit text-2xl outline outline-1 outline-zinc-800 rounded-md shadow-md transition ease-in-out hover:scale-105;
+  }
+
+  .btn-secondary {
+    @apply py-3 px-6 w-fit h-fit bg-indigo-800 font-bold self-center text-white rounded-2xl  transition ease-in-out hover:scale-105 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-75 delay-100;
+  }
+
+  .btn-tertiary {
+    @apply py-3 px-6 w-fit h-fit font-bold self-center text-white rounded-2xl outline outline-1 outline-white  transition ease-in-out hover:scale-105 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-75 delay-100;
+  }
+
+  /** CENTER ABOSLUTE POSITION*/
+
+  .absolute-center {
+    @apply absolute top-1/2 left-1/2 transform -translate-x-1/2;
+  }
+
+  /** NAVBAR ITEM */
+
+  .navbar-item {
+    @apply lg:text-sm cursor-pointer lg:inline-flex lg:w-auto w-full px-1 py-2 font-bold rounded text-white items-center justify-center hover:text-gray-300;
+  }
+
+  /** DIVIDER HORIZONTAL LINE */
+
+  .divider {
+    @apply w-full border-t border-gray-300 my-5;
+  }
+
+  /** TABS */
+
+  .selected-tab {
+    @apply mx-2 text-zinc-900 font-bold p-3 outline-none border-b-4 border-zinc-800 transition ease-in-out;
+  }
+
+  .tab {
+    @apply mx-2 text-zinc-800 p-3;
+  }
+
+  /** FORM FIELDS*/
+
+  .input-label {
+    @apply text-sm;
+  }
+
+  .input-form {
+    @apply text-zinc-900 outline outline-1 outline-zinc-400 rounded-lg p-3 focus:outline-zinc-900 text-sm;
+  }
+
+  .select-form {
+    @apply outline outline-1 cursor-pointer text-zinc-900 outline-zinc-400 rounded-lg p-2 focus:outline-zinc-900;
+  }
+
+  .input-file {
+    @apply outline outline-1 cursor-pointer text-zinc-900 outline-zinc-400 rounded-lg p-2 font-semibold bg-zinc-100 hover:bg-zinc-200 focus:outline-zinc-900;
+  }
+}
+
+/** HEADINGS SIZES */
+
+h1 {
+  @apply text-2xl font-bold md:text-3xl;
+}
+
+h2 {
+  @apply text-xl font-bold md:text-2xl;
+}
+
+h3 {
+  @apply text-lg font-bold md:text-xl;
+}
+
+h4 {
+  @apply text-base font-bold md:text-lg;
+}
+
+/** NATIVE TAGS */
+input[type="file"] {
+  display: none;
+}
+
+.layout {
+  z-index: 0;
+  max-width: 96.75rem;
+  width: 96%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* CAROUSEL */
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.swiper-pagination-bullets-dynamic {
+  margin-top: 200px;
+}

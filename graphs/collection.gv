@@ -1,0 +1,417 @@
+digraph G {
+  graph [ ratio = "auto", page = "100", compound =true, bgcolor = "#2e3e56" ];
+  node [ style = "filled", fillcolor = "#edad56", color = "#edad56", penwidth =3 ];
+  edge [ color = "#fcfcfc", penwidth =2, fontname = "helvetica Neue Ultra Light" ];
+subgraph "clusterCollection" {
+  graph [ label = "Collection", color = "#445773", fontcolor = "#f0f0f0", style = "rounded", bgcolor = "#445773" ];
+  "Collection.createCollection" [ label = "createCollection", color = "brown", fillcolor = "#ffbdb9" ];
+  "Collection.editMetaData" [ label = "editMetaData", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+  "Collection.getUserCollections" [ label = "getUserCollections", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+  "Collection.getOneCollectionInfo" [ label = "getOneCollectionInfo", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+  "Collection.totalCollections" [ label = "totalCollections", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+  "Collection.getCollectionsPaginated" [ label = "getCollectionsPaginated", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+}
+
+subgraph "clusterNFT" {
+  graph [ label = "NFT", color = "#445773", fontcolor = "#f0f0f0", style = "rounded", bgcolor = "#445773" ];
+  "NFT.<Constructor>" [ label = "<Constructor>", color = "#FF9797", fillcolor = "#FF9797" ];
+  "NFT.onlyCreator" [ label = "onlyCreator", color = "#1bc6a6", shape =doubleoctagon ];
+  "NFT.mint" [ label = "mint", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+  "NFT.getTokenRoyalty" [ label = "getTokenRoyalty", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+  "NFT.getCollectionAddress" [ label = "getCollectionAddress", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+  "NFT.royaltyInfo" [ label = "royaltyInfo", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+  "NFT.<Receive Ether>" [ label = "<Receive Ether>", color = "brown", fillcolor = "#ffbdb9" ];
+  "NFT.withdraw" [ label = "withdraw", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+  "NFT.getCreator" [ label = "getCreator", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+  "NFT._beforeTokenTransfer" [ label = "_beforeTokenTransfer", color = "#f2c383", fillcolor = "#f2c383" ];
+  "NFT._burn" [ label = "_burn", color = "#f2c383", fillcolor = "#f2c383" ];
+  "NFT.tokenURI" [ label = "tokenURI", color = "#FF9797", fillcolor = "#FF9797" ];
+  "NFT.supportsInterface" [ label = "supportsInterface", color = "#FF9797", fillcolor = "#FF9797" ];
+  "NFT._mint" [ label = "_mint" ];
+  "NFT._setTokenURI" [ label = "_setTokenURI" ];
+  "NFT.payable" [ label = "payable" ];
+  "NFT.type" [ label = "type" ];
+}
+
+subgraph "clusterCounters" {
+  graph [ label = "Counters  (lib)", color = "#445773", fontcolor = "#f0f0f0", style = "rounded", bgcolor = "#445773" ];
+  "Counters.current" [ label = "current", color = "#f2c383", fillcolor = "#f2c383" ];
+  "Counters.increment" [ label = "increment", color = "#f2c383", fillcolor = "#f2c383" ];
+  "Counters.decrement" [ label = "decrement", color = "#f2c383", fillcolor = "#f2c383" ];
+  "Counters.reset" [ label = "reset", color = "#f2c383", fillcolor = "#f2c383" ];
+}
+
+subgraph "clusterERC721URIStorage" {
+  graph [ label = "ERC721URIStorage", color = "#445773", fontcolor = "#f0f0f0", style = "rounded", bgcolor = "#445773" ];
+  "ERC721URIStorage._beforeTokenTransfer" [ label = "_beforeTokenTransfer" ];
+  "ERC721URIStorage._burn" [ label = "_burn", color = "#f2c383", fillcolor = "#f2c383" ];
+  "ERC721URIStorage.tokenURI" [ label = "tokenURI", color = "#FF9797", fillcolor = "#FF9797" ];
+  "ERC721URIStorage.supportsInterface" [ label = "supportsInterface" ];
+  "ERC721URIStorage._setTokenURI" [ label = "_setTokenURI", color = "#f2c383", fillcolor = "#f2c383" ];
+  "ERC721URIStorage._exists" [ label = "_exists" ];
+  "ERC721URIStorage._baseURI" [ label = "_baseURI" ];
+}
+
+subgraph "clusterERC721" {
+  graph [ label = "ERC721", color = "#445773", fontcolor = "#f0f0f0", style = "rounded", bgcolor = "#445773" ];
+  "ERC721.tokenURI" [ label = "tokenURI", color = "#FF9797", fillcolor = "#FF9797" ];
+  "ERC721._burn" [ label = "_burn", color = "#f2c383", fillcolor = "#f2c383" ];
+  "ERC721.<Constructor>" [ label = "<Constructor>", color = "#FF9797", fillcolor = "#FF9797" ];
+  "ERC721.supportsInterface" [ label = "supportsInterface", color = "#FF9797", fillcolor = "#FF9797" ];
+  "ERC721.balanceOf" [ label = "balanceOf" ];
+  "ERC721.ownerOf" [ label = "ownerOf" ];
+  "ERC721.name" [ label = "name", color = "#FF9797", fillcolor = "#FF9797" ];
+  "ERC721.symbol" [ label = "symbol", color = "#FF9797", fillcolor = "#FF9797" ];
+  "ERC721._baseURI" [ label = "_baseURI" ];
+  "ERC721.approve" [ label = "approve", color = "#FF9797", fillcolor = "#FF9797" ];
+  "ERC721.getApproved" [ label = "getApproved", color = "#FF9797", fillcolor = "#FF9797" ];
+  "ERC721.setApprovalForAll" [ label = "setApprovalForAll", color = "#FF9797", fillcolor = "#FF9797" ];
+  "ERC721.isApprovedForAll" [ label = "isApprovedForAll" ];
+  "ERC721.transferFrom" [ label = "transferFrom", color = "#FF9797", fillcolor = "#FF9797" ];
+  "ERC721.safeTransferFrom" [ label = "safeTransferFrom" ];
+  "ERC721._safeTransfer" [ label = "_safeTransfer" ];
+  "ERC721._exists" [ label = "_exists" ];
+  "ERC721._isApprovedOrOwner" [ label = "_isApprovedOrOwner" ];
+  "ERC721._safeMint" [ label = "_safeMint" ];
+  "ERC721._mint" [ label = "_mint" ];
+  "ERC721._transfer" [ label = "_transfer" ];
+  "ERC721._approve" [ label = "_approve" ];
+  "ERC721._setApprovalForAll" [ label = "_setApprovalForAll" ];
+  "ERC721._checkOnERC721Received" [ label = "_checkOnERC721Received" ];
+  "ERC721._beforeTokenTransfer" [ label = "_beforeTokenTransfer" ];
+  "ERC721._afterTokenTransfer" [ label = "_afterTokenTransfer" ];
+  "ERC721.type" [ label = "type" ];
+  "ERC721._msgSender" [ label = "_msgSender" ];
+}
+
+subgraph "clusterIERC721" {
+  graph [ label = "IERC721  (iface)", color = "#445773", fontcolor = "#f0f0f0", style = "rounded", bgcolor = "#445773" ];
+  "IERC721.balanceOf" [ label = "balanceOf", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+  "IERC721.ownerOf" [ label = "ownerOf", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+  "IERC721.safeTransferFrom" [ label = "safeTransferFrom", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+  "IERC721.transferFrom" [ label = "transferFrom", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+  "IERC721.approve" [ label = "approve", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+  "IERC721.getApproved" [ label = "getApproved", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+  "IERC721.setApprovalForAll" [ label = "setApprovalForAll", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+  "IERC721.isApprovedForAll" [ label = "isApprovedForAll", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+}
+
+subgraph "clusterIERC165" {
+  graph [ label = "IERC165  (iface)", color = "#445773", fontcolor = "#f0f0f0", style = "rounded", bgcolor = "#445773" ];
+  "IERC165.supportsInterface" [ label = "supportsInterface", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+}
+
+subgraph "clusterIERC721Receiver" {
+  graph [ label = "IERC721Receiver  (iface)", color = "#445773", fontcolor = "#f0f0f0", style = "rounded", bgcolor = "#445773" ];
+  "IERC721Receiver.onERC721Received" [ label = "onERC721Received", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+}
+
+subgraph "clusterIERC721Metadata" {
+  graph [ label = "IERC721Metadata  (iface)", color = "#445773", fontcolor = "#f0f0f0", style = "rounded", bgcolor = "#445773" ];
+  "IERC721Metadata.supportsInterface" [ label = "supportsInterface" ];
+  "IERC721Metadata.name" [ label = "name", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+  "IERC721Metadata.symbol" [ label = "symbol", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+  "IERC721Metadata.tokenURI" [ label = "tokenURI", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+}
+
+subgraph "clusterAddress" {
+  graph [ label = "Address  (lib)", color = "#445773", fontcolor = "#f0f0f0", style = "rounded", bgcolor = "#445773" ];
+  "Address.isContract" [ label = "isContract" ];
+  "Address.sendValue" [ label = "sendValue", color = "#f2c383", fillcolor = "#f2c383" ];
+  "Address.functionCall" [ label = "functionCall" ];
+  "Address.functionCallWithValue" [ label = "functionCallWithValue" ];
+  "Address.functionStaticCall" [ label = "functionStaticCall" ];
+  "Address.functionDelegateCall" [ label = "functionDelegateCall" ];
+  "Address.verifyCallResult" [ label = "verifyCallResult" ];
+}
+
+subgraph "clusterContext" {
+  graph [ label = "Context", color = "#445773", fontcolor = "#f0f0f0", style = "rounded", bgcolor = "#445773" ];
+  "Context._msgSender" [ label = "_msgSender", color = "#f2c383", fillcolor = "#f2c383" ];
+  "Context._msgData" [ label = "_msgData", color = "#f2c383", fillcolor = "#f2c383" ];
+}
+
+subgraph "clusterStrings" {
+  graph [ label = "Strings  (lib)", color = "#445773", fontcolor = "#f0f0f0", style = "rounded", bgcolor = "#445773" ];
+  "Strings.toString" [ label = "toString", color = "#f2c383", fillcolor = "#f2c383" ];
+  "Strings.toHexString" [ label = "toHexString" ];
+}
+
+subgraph "clusterERC165" {
+  graph [ label = "ERC165", color = "#445773", fontcolor = "#f0f0f0", style = "rounded", bgcolor = "#445773" ];
+  "ERC165.supportsInterface" [ label = "supportsInterface", color = "#FF9797", fillcolor = "#FF9797" ];
+  "ERC165.type" [ label = "type" ];
+}
+
+subgraph "clusterOwnable" {
+  graph [ label = "Ownable", color = "#445773", fontcolor = "#f0f0f0", style = "rounded", bgcolor = "#445773" ];
+  "Ownable.<Constructor>" [ label = "<Constructor>", color = "#FF9797", fillcolor = "#FF9797" ];
+  "Ownable.owner" [ label = "owner" ];
+  "Ownable.onlyOwner" [ label = "onlyOwner", color = "#1bc6a6", shape =doubleoctagon ];
+  "Ownable.renounceOwnership" [ label = "renounceOwnership", color = "#FF9797", fillcolor = "#FF9797" ];
+  "Ownable.transferOwnership" [ label = "transferOwnership", color = "#FF9797", fillcolor = "#FF9797" ];
+  "Ownable._transferOwnership" [ label = "_transferOwnership" ];
+  "Ownable._msgSender" [ label = "_msgSender" ];
+}
+
+subgraph "clusterReentrancyGuard" {
+  graph [ label = "ReentrancyGuard", color = "#445773", fontcolor = "#f0f0f0", style = "rounded", bgcolor = "#445773" ];
+  "ReentrancyGuard.<Constructor>" [ label = "<Constructor>", color = "#FF9797", fillcolor = "#FF9797" ];
+  "ReentrancyGuard.nonReentrant" [ label = "nonReentrant", color = "#1bc6a6", shape =doubleoctagon ];
+}
+
+subgraph "clusterERC721Enumerable" {
+  graph [ label = "ERC721Enumerable", color = "#445773", fontcolor = "#f0f0f0", style = "rounded", bgcolor = "#445773" ];
+  "ERC721.supportsInterface" [ label = "supportsInterface", color = "#FF9797", fillcolor = "#FF9797" ];
+  "ERC721Enumerable.tokenOfOwnerByIndex" [ label = "tokenOfOwnerByIndex", color = "#FF9797", fillcolor = "#FF9797" ];
+  "ERC721Enumerable.totalSupply" [ label = "totalSupply" ];
+  "ERC721Enumerable.tokenByIndex" [ label = "tokenByIndex", color = "#FF9797", fillcolor = "#FF9797" ];
+  "ERC721._beforeTokenTransfer" [ label = "_beforeTokenTransfer", color = "#f2c383", fillcolor = "#f2c383" ];
+  "ERC721Enumerable._addTokenToOwnerEnumeration" [ label = "_addTokenToOwnerEnumeration" ];
+  "ERC721Enumerable._addTokenToAllTokensEnumeration" [ label = "_addTokenToAllTokensEnumeration" ];
+  "ERC721Enumerable._removeTokenFromOwnerEnumeration" [ label = "_removeTokenFromOwnerEnumeration" ];
+  "ERC721Enumerable._removeTokenFromAllTokensEnumeration" [ label = "_removeTokenFromAllTokensEnumeration" ];
+}
+
+subgraph "clusterIERC721Enumerable" {
+  graph [ label = "IERC721Enumerable  (iface)", color = "#445773", fontcolor = "#f0f0f0", style = "rounded", bgcolor = "#445773" ];
+  "IERC721Enumerable.supportsInterface" [ label = "supportsInterface" ];
+  "IERC721Enumerable._beforeTokenTransfer" [ label = "_beforeTokenTransfer" ];
+  "IERC721Enumerable.totalSupply" [ label = "totalSupply", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+  "IERC721Enumerable.tokenOfOwnerByIndex" [ label = "tokenOfOwnerByIndex", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+  "IERC721Enumerable.tokenByIndex" [ label = "tokenByIndex", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+}
+
+subgraph "clusterIERC2981" {
+  graph [ label = "IERC2981  (iface)", color = "#445773", fontcolor = "#f0f0f0", style = "rounded", bgcolor = "#445773" ];
+  "IERC2981.royaltyInfo" [ label = "royaltyInfo", color = "#ffbdb9", fillcolor = "#ffbdb9" ];
+}
+
+subgraph "clusterCounters.Counter" {
+  graph [ label = "Counters.Counter", color = "#e8726d", fontcolor = "#f0f0f0", style = "rounded,dashed", bgcolor = "#3b4b63" ];
+  "Counters.Counter.increment" [ label = "increment" ];
+  "Counters.Counter.current" [ label = "current" ];
+}
+
+subgraph "clustertokenId" {
+  graph [ label = "tokenId", color = "#e8726d", fontcolor = "#f0f0f0", style = "rounded,dashed", bgcolor = "#3b4b63" ];
+  "tokenId.toString" [ label = "toString" ];
+}
+
+subgraph "clusterto" {
+  graph [ label = "to", color = "#e8726d", fontcolor = "#f0f0f0", style = "rounded,dashed", bgcolor = "#3b4b63" ];
+  "to.isContract" [ label = "isContract" ];
+}
+
+subgraph "clustertarget" {
+  graph [ label = "target", color = "#e8726d", fontcolor = "#f0f0f0", style = "rounded,dashed", bgcolor = "#3b4b63" ];
+  "target.staticcall" [ label = "staticcall" ];
+  "target.delegatecall" [ label = "delegatecall" ];
+}
+
+  "Collection.createCollection";
+  "Counters.Counter.increment";
+  "Counters.Counter.current";
+  "Collection.getOneCollectionInfo";
+  "Collection.totalCollections";
+  "Collection.getCollectionsPaginated";
+  "NFT.mint";
+  "NFT._mint";
+  "NFT._setTokenURI";
+  "NFT.withdraw";
+  "NFT.payable";
+  "NFT._beforeTokenTransfer";
+  "ERC721URIStorage._beforeTokenTransfer";
+  "NFT._burn";
+  "ERC721URIStorage._burn";
+  "NFT.tokenURI";
+  "ERC721URIStorage.tokenURI";
+  "NFT.supportsInterface";
+  "NFT.type";
+  "ERC721URIStorage.supportsInterface";
+  "ERC721URIStorage._exists";
+  "ERC721URIStorage._baseURI";
+  "ERC721.tokenURI";
+  "ERC721URIStorage._setTokenURI";
+  "ERC721._burn";
+  "ERC721.supportsInterface";
+  "ERC721.type";
+  "IERC721Metadata.supportsInterface";
+  "ERC721._exists";
+  "ERC721._baseURI";
+  "tokenId.toString";
+  "ERC721.approve";
+  "ERC721.ownerOf";
+  "ERC721._msgSender";
+  "ERC721.isApprovedForAll";
+  "ERC721._approve";
+  "ERC721.getApproved";
+  "ERC721.setApprovalForAll";
+  "ERC721._setApprovalForAll";
+  "ERC721.transferFrom";
+  "ERC721._isApprovedOrOwner";
+  "ERC721._transfer";
+  "ERC721.safeTransferFrom";
+  "ERC721._safeTransfer";
+  "ERC721._checkOnERC721Received";
+  "ERC721._safeMint";
+  "ERC721._mint";
+  "ERC721._beforeTokenTransfer";
+  "ERC721._afterTokenTransfer";
+  "to.isContract";
+  "Address.functionCall";
+  "Address.functionCallWithValue";
+  "Address.isContract";
+  "Address.verifyCallResult";
+  "Address.functionStaticCall";
+  "target.staticcall";
+  "Address.functionDelegateCall";
+  "target.delegatecall";
+  "Strings.toHexString";
+  "ERC165.supportsInterface";
+  "ERC165.type";
+  "Ownable.<Constructor>";
+  "Ownable._transferOwnership";
+  "Ownable._msgSender";
+  "Ownable.onlyOwner";
+  "Ownable.owner";
+  "Ownable.renounceOwnership";
+  "Ownable.transferOwnership";
+  "IERC721Enumerable.supportsInterface";
+  "ERC721Enumerable.tokenOfOwnerByIndex";
+  "ERC721.balanceOf";
+  "ERC721Enumerable.tokenByIndex";
+  "ERC721Enumerable.totalSupply";
+  "IERC721Enumerable._beforeTokenTransfer";
+  "ERC721Enumerable._addTokenToAllTokensEnumeration";
+  "ERC721Enumerable._removeTokenFromOwnerEnumeration";
+  "ERC721Enumerable._removeTokenFromAllTokensEnumeration";
+  "ERC721Enumerable._addTokenToOwnerEnumeration";
+  "Collection.createCollection" -> "Counters.Counter.increment" [ color = "white" ];
+  "Collection.createCollection" -> "Counters.Counter.current" [ color = "white" ];
+  "Collection.createCollection" -> "Counters.Counter.current" [ color = "white" ];
+  "Collection.createCollection" -> "Counters.Counter.current" [ color = "white" ];
+  "Collection.getOneCollectionInfo" -> "Counters.Counter.current" [ color = "white" ];
+  "Collection.totalCollections" -> "Counters.Counter.current" [ color = "white" ];
+  "Collection.getCollectionsPaginated" -> "Counters.Counter.current" [ color = "white" ];
+  "NFT.mint" -> "Counters.Counter.increment" [ color = "white" ];
+  "NFT.mint" -> "Counters.Counter.current" [ color = "white" ];
+  "NFT.mint" -> "NFT._mint" [ color = "#1bc6a6" ];
+  "NFT.mint" -> "NFT._setTokenURI" [ color = "#1bc6a6" ];
+  "NFT.withdraw" -> "NFT.payable" [ color = "#1bc6a6" ];
+  "NFT._beforeTokenTransfer" -> "ERC721URIStorage._beforeTokenTransfer" [ color = "white" ];
+  "NFT._burn" -> "ERC721URIStorage._burn" [ color = "white" ];
+  "NFT.tokenURI" -> "ERC721URIStorage.tokenURI" [ color = "white" ];
+  "NFT.supportsInterface" -> "NFT.type" [ color = "#1bc6a6" ];
+  "NFT.supportsInterface" -> "NFT.type" [ color = "#1bc6a6" ];
+  "NFT.supportsInterface" -> "NFT.type" [ color = "#1bc6a6" ];
+  "NFT.supportsInterface" -> "ERC721URIStorage.supportsInterface" [ color = "white" ];
+  "ERC721URIStorage.tokenURI" -> "ERC721URIStorage._exists" [ color = "#1bc6a6" ];
+  "ERC721URIStorage.tokenURI" -> "ERC721URIStorage._baseURI" [ color = "#1bc6a6" ];
+  "ERC721URIStorage.tokenURI" -> "ERC721.tokenURI" [ color = "white" ];
+  "ERC721URIStorage._setTokenURI" -> "ERC721URIStorage._exists" [ color = "#1bc6a6" ];
+  "ERC721URIStorage._burn" -> "ERC721._burn" [ color = "white" ];
+  "ERC721.supportsInterface" -> "ERC721.type" [ color = "#1bc6a6" ];
+  "ERC721.supportsInterface" -> "ERC721.type" [ color = "#1bc6a6" ];
+  "ERC721.supportsInterface" -> "IERC721Metadata.supportsInterface" [ color = "white" ];
+  "ERC721.tokenURI" -> "ERC721._exists" [ color = "#1bc6a6" ];
+  "ERC721.tokenURI" -> "ERC721._baseURI" [ color = "#1bc6a6" ];
+  "ERC721.tokenURI" -> "tokenId.toString" [ color = "white" ];
+  "ERC721.approve" -> "ERC721.ownerOf" [ color = "white" ];
+  "ERC721.approve" -> "ERC721._msgSender" [ color = "#1bc6a6" ];
+  "ERC721.approve" -> "ERC721.isApprovedForAll" [ color = "#1bc6a6" ];
+  "ERC721.approve" -> "ERC721._msgSender" [ color = "#1bc6a6" ];
+  "ERC721.approve" -> "ERC721._approve" [ color = "#1bc6a6" ];
+  "ERC721.getApproved" -> "ERC721._exists" [ color = "#1bc6a6" ];
+  "ERC721.setApprovalForAll" -> "ERC721._setApprovalForAll" [ color = "#1bc6a6" ];
+  "ERC721.setApprovalForAll" -> "ERC721._msgSender" [ color = "#1bc6a6" ];
+  "ERC721.transferFrom" -> "ERC721._isApprovedOrOwner" [ color = "#1bc6a6" ];
+  "ERC721.transferFrom" -> "ERC721._msgSender" [ color = "#1bc6a6" ];
+  "ERC721.transferFrom" -> "ERC721._transfer" [ color = "#1bc6a6" ];
+  "ERC721.safeTransferFrom" -> "ERC721.safeTransferFrom" [ color = "#1bc6a6" ];
+  "ERC721.safeTransferFrom" -> "ERC721._isApprovedOrOwner" [ color = "#1bc6a6" ];
+  "ERC721.safeTransferFrom" -> "ERC721._msgSender" [ color = "#1bc6a6" ];
+  "ERC721.safeTransferFrom" -> "ERC721._safeTransfer" [ color = "#1bc6a6" ];
+  "ERC721._safeTransfer" -> "ERC721._transfer" [ color = "#1bc6a6" ];
+  "ERC721._safeTransfer" -> "ERC721._checkOnERC721Received" [ color = "#1bc6a6" ];
+  "ERC721._isApprovedOrOwner" -> "ERC721._exists" [ color = "#1bc6a6" ];
+  "ERC721._isApprovedOrOwner" -> "ERC721.ownerOf" [ color = "white" ];
+  "ERC721._isApprovedOrOwner" -> "ERC721.getApproved" [ color = "#1bc6a6" ];
+  "ERC721._isApprovedOrOwner" -> "ERC721.isApprovedForAll" [ color = "#1bc6a6" ];
+  "ERC721._safeMint" -> "ERC721._safeMint" [ color = "#1bc6a6" ];
+  "ERC721._safeMint" -> "ERC721._mint" [ color = "#1bc6a6" ];
+  "ERC721._safeMint" -> "ERC721._checkOnERC721Received" [ color = "#1bc6a6" ];
+  "ERC721._mint" -> "ERC721._exists" [ color = "#1bc6a6" ];
+  "ERC721._mint" -> "ERC721._beforeTokenTransfer" [ color = "#1bc6a6" ];
+  "ERC721._mint" -> "ERC721._afterTokenTransfer" [ color = "#1bc6a6" ];
+  "ERC721._burn" -> "ERC721.ownerOf" [ color = "white" ];
+  "ERC721._burn" -> "ERC721._beforeTokenTransfer" [ color = "#1bc6a6" ];
+  "ERC721._burn" -> "ERC721._approve" [ color = "#1bc6a6" ];
+  "ERC721._burn" -> "ERC721._afterTokenTransfer" [ color = "#1bc6a6" ];
+  "ERC721._transfer" -> "ERC721.ownerOf" [ color = "white" ];
+  "ERC721._transfer" -> "ERC721._beforeTokenTransfer" [ color = "#1bc6a6" ];
+  "ERC721._transfer" -> "ERC721._approve" [ color = "#1bc6a6" ];
+  "ERC721._transfer" -> "ERC721._afterTokenTransfer" [ color = "#1bc6a6" ];
+  "ERC721._approve" -> "ERC721.ownerOf" [ color = "white" ];
+  "ERC721._checkOnERC721Received" -> "to.isContract" [ color = "white" ];
+  "ERC721._checkOnERC721Received" -> "ERC721._msgSender" [ color = "#1bc6a6" ];
+  "Address.functionCall" -> "Address.functionCall" [ color = "#1bc6a6" ];
+  "Address.functionCall" -> "Address.functionCallWithValue" [ color = "#1bc6a6" ];
+  "Address.functionCallWithValue" -> "Address.functionCallWithValue" [ color = "#1bc6a6" ];
+  "Address.functionCallWithValue" -> "Address.isContract" [ color = "#1bc6a6" ];
+  "Address.functionCallWithValue" -> "Address.verifyCallResult" [ color = "#1bc6a6" ];
+  "Address.functionStaticCall" -> "Address.functionStaticCall" [ color = "#1bc6a6" ];
+  "Address.functionStaticCall" -> "Address.isContract" [ color = "#1bc6a6" ];
+  "Address.functionStaticCall" -> "target.staticcall" [ color = "white" ];
+  "Address.functionStaticCall" -> "Address.verifyCallResult" [ color = "#1bc6a6" ];
+  "Address.functionDelegateCall" -> "Address.functionDelegateCall" [ color = "#1bc6a6" ];
+  "Address.functionDelegateCall" -> "Address.isContract" [ color = "#1bc6a6" ];
+  "Address.functionDelegateCall" -> "target.delegatecall" [ color = "white" ];
+  "Address.functionDelegateCall" -> "Address.verifyCallResult" [ color = "#1bc6a6" ];
+  "Strings.toHexString" -> "Strings.toHexString" [ color = "#1bc6a6" ];
+  "ERC165.supportsInterface" -> "ERC165.type" [ color = "#1bc6a6" ];
+  "Ownable.<Constructor>" -> "Ownable._transferOwnership" [ color = "#1bc6a6" ];
+  "Ownable.<Constructor>" -> "Ownable._msgSender" [ color = "#1bc6a6" ];
+  "Ownable.onlyOwner" -> "Ownable.owner" [ color = "#1bc6a6" ];
+  "Ownable.onlyOwner" -> "Ownable._msgSender" [ color = "#1bc6a6" ];
+  "Ownable.renounceOwnership" -> "Ownable._transferOwnership" [ color = "#1bc6a6" ];
+  "Ownable.transferOwnership" -> "Ownable._transferOwnership" [ color = "#1bc6a6" ];
+  "ERC721.supportsInterface" -> "ERC721.type" [ color = "#1bc6a6" ];
+  "ERC721.supportsInterface" -> "IERC721Enumerable.supportsInterface" [ color = "white" ];
+  "ERC721Enumerable.tokenOfOwnerByIndex" -> "ERC721.balanceOf" [ color = "white" ];
+  "ERC721Enumerable.tokenByIndex" -> "ERC721Enumerable.totalSupply" [ color = "white" ];
+  "ERC721._beforeTokenTransfer" -> "IERC721Enumerable._beforeTokenTransfer" [ color = "white" ];
+  "ERC721._beforeTokenTransfer" -> "ERC721Enumerable._addTokenToAllTokensEnumeration" [ color = "#1bc6a6" ];
+  "ERC721._beforeTokenTransfer" -> "ERC721Enumerable._removeTokenFromOwnerEnumeration" [ color = "#1bc6a6" ];
+  "ERC721._beforeTokenTransfer" -> "ERC721Enumerable._removeTokenFromAllTokensEnumeration" [ color = "#1bc6a6" ];
+  "ERC721._beforeTokenTransfer" -> "ERC721Enumerable._addTokenToOwnerEnumeration" [ color = "#1bc6a6" ];
+  "ERC721Enumerable._addTokenToOwnerEnumeration" -> "ERC721.balanceOf" [ color = "white" ];
+  "ERC721Enumerable._removeTokenFromOwnerEnumeration" -> "ERC721.balanceOf" [ color = "white" ];
+
+
+rankdir=LR
+node [shape=plaintext]
+subgraph cluster_01 { 
+label = "Legend";
+key [label=<<table border="0" cellpadding="2" cellspacing="0" cellborder="0">
+  <tr><td align="right" port="i1">Internal Call</td></tr>
+  <tr><td align="right" port="i2">External Call</td></tr>
+  <tr><td align="right" port="i3">Defined Contract</td></tr>
+  <tr><td align="right" port="i4">Undefined Contract</td></tr>
+  </table>>]
+key2 [label=<<table border="0" cellpadding="2" cellspacing="0" cellborder="0">
+  <tr><td port="i1">&nbsp;&nbsp;&nbsp;</td></tr>
+  <tr><td port="i2">&nbsp;&nbsp;&nbsp;</td></tr>
+  <tr><td port="i3" bgcolor="#445773">&nbsp;&nbsp;&nbsp;</td></tr>
+  <tr><td port="i4">
+    <table border="1" cellborder="0" cellspacing="0" cellpadding="7" color="#e8726d">
+      <tr>
+       <td></td>
+      </tr>
+     </table>
+  </td></tr>
+  </table>>]
+key:i1:e -> key2:i1:w [color="#1bc6a6"]
+key:i2:e -> key2:i2:w [color="white"]
+}
+}

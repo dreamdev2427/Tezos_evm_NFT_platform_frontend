@@ -1,0 +1,78 @@
+{
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+    "plugin:promise/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "createDefaultProgram": true,
+    "project": "./tsconfig.json"
+  },
+  "plugins": [
+    "import",
+    "@typescript-eslint",
+    "jsx-a11y",
+    "prettier",
+    "promise"
+  ],
+  "rules": {
+    "no-param-reassign": [2, { "props": true }],
+
+    "@typescript-eslint/init-declarations": 0,
+    "@typescript-eslint/no-floating-promises": 0,
+    "promise/catch-or-return": 0,
+    "promise/always-return": 0,
+    "@typescript-eslint/no-implicit-any-catch": 0,
+    "import/order": 1,
+    "@typescript-eslint/no-type-alias": 0,
+    "@typescript-eslint/naming-convention": [
+      "warn",
+      {
+        "selector": "variable",
+        "format": ["camelCase", "PascalCase", "UPPER_CASE"]
+      }
+    ],
+    "@typescript-eslint/explicit-function-return-type": [
+      2,
+      {
+        "allowExpressions": true
+      }
+    ],
+    "@typescript-eslint/no-confusing-void-expression": [
+      "error",
+      { "ignoreArrowShorthand": true }
+    ],
+    "@typescript-eslint/strict-boolean-expressions": [
+      2,
+      {
+        "allowNullableString": true,
+        "allowNullableBoolean": true
+      }
+    ],
+    "@typescript-eslint/prefer-readonly-parameter-types": 0,
+    "import/no-unresolved": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/extensions": 0,
+    "no-underscore-dangle": 0,
+
+    "@typescript-eslint/no-use-before-define": [
+      "error",
+      { "functions": true, "classes": true, "variables": false }
+    ]
+  }
+}

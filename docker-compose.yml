@@ -1,0 +1,6 @@
+version: "3.8"
+services:
+  marketplace:
+    image: // TO COMPLETE
+    ports:
+      - "3000:3000"
