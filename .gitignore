@@ -56,9 +56,9 @@ Thumbs.db
 .env
 
 # Hardhat 
-artifacts
-cache
-typechain
+#artifacts
+#cache
+#typechain
 
 # Coverage
 coverage
