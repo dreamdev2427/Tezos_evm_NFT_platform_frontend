@@ -21,6 +21,21 @@ import {
   getAccountBalance,
 } from "../../utils/wallet";
 
+import { TezosToolkit } from "@taquito/taquito";
+import { BeaconWallet } from "@taquito/beacon-wallet";
+import {
+  NetworkType,
+  BeaconEvent,
+  defaultEventCallbacks,
+  ColorMode,
+} from "@airgap/beacon-sdk";
+
+import {
+  fetchData,
+  fetchContractData,
+  _walletConfig,
+} from "../../config/redux/tezos_actions";
+
 import {
   setAddress,
   setUserLogin,
@@ -32,6 +47,11 @@ import {
   selectBlockchainDapp,
 } from "../../config/redux/blockchainDapp";
 
+import {
+  connectTezosWallet,
+  disconnecTezostWallet,
+} from "../../config/redux/tezos_actions";
+
 import { ellipseAddress } from "../../utils/ui";
 import BlockchainIcon from "../BlockchainIcon";
 import { TypeBlockchain } from "../../types";
@@ -40,8 +60,16 @@ import SignUp from "../../components/authentication/SignUp";
 import Disconnect from "../authentication/Disconnect";
 
 export const Navbar = (): JSX.Element => {
+  const dispatch = useDispatch();
   const blockchainDapp = useSelector(selectBlockchainDapp);
   const userAccount = useSelector(selectAccount);
+  const tezosAccount = useSelector(
+    (state) => state.tezosUser.walletConfig.user
+  );
+  const [Tezos, setTezos] = useState(
+    new TezosToolkit("https://ghostnet.smartpy.io/")
+  );
+  const [tgWallet, setWallet] = useState(null);
 
   const navigate = useRouter();
 
@@ -105,7 +133,44 @@ export const Navbar = (): JSX.Element => {
     setIsSignUp(false);
   };
 
-  const dispatch = useDispatch();
+  useEffect(() => {
+    (async () => {
+      const wallet_instance = new BeaconWallet({
+        name: "NFT Marketplace",
+        preferredNetwork: NetworkType.GHOSTNET,
+        colorMode: ColorMode.LIGHT,
+        disableDefaultEvents: false, // Disable all events / UI. This also disables the pairing alert.
+        eventHandlers: {
+          // To keep the pairing alert, we have to add the following default event handlers back
+          [BeaconEvent.PAIR_INIT]: {
+            handler: defaultEventCallbacks.PAIR_INIT,
+          },
+          [BeaconEvent.PAIR_SUCCESS]: {
+            handler: (data) => {
+              return data.publicKey;
+            },
+          },
+        },
+      });
+      Tezos.setWalletProvider(wallet_instance);
+      const activeAccount = await wallet_instance.client.getActiveAccount();
+      if (activeAccount) {
+        const userAddress = await wallet_instance.getPKH();
+        const balance = await Tezos.tz.getBalance(userAddress);
+
+        _walletConfig({
+          userAddress: userAddress,
+          balance: balance.toNumber(),
+        })(dispatch);
+      }
+      console.log("wallet_instance >>>> ", wallet_instance);
+      setWallet(wallet_instance);
+    })();
+  }, [Tezos, dispatch]);
+
+  useEffect(() => {
+    fetchData({ Tezos })(dispatch);
+  }, [Tezos, dispatch]);
 
   const handleClick = (): void => {
     setActive(!active);
@@ -116,7 +181,7 @@ export const Navbar = (): JSX.Element => {
     const chainIdTemporary = await getConnectedNetwork();
     const balanceTemporary = await getAccountBalance();
 
-    if (address) {
+    if (address && blockchainDapp === "Avalanche") {
       dispatch(
         setAddress({
           address,
@@ -127,6 +192,11 @@ export const Navbar = (): JSX.Element => {
       setAccount(address);
       setChainId(chainIdTemporary);
       setBalance(balanceTemporary);
+    }
+    if (blockchainDapp === "Tezos") {
+      if (tezosAccount.userAddress === "") {
+        setAccount(address);
+      }
     }
   };
 
@@ -173,6 +243,20 @@ export const Navbar = (): JSX.Element => {
       dispatch(setUserLogin(dataToPersist));
     }
   }, []);
+
+  const handleTezosWallet = (event) => {
+    if (
+      tezosAccount.userAddress === "" ||
+      !tezosAccount ||
+      !tezosAccount?.userAddress
+    ) {
+      alert("doing tezos wallet connection !");
+      console.log("tgWallet >>> ", tgWallet);
+      connectTezosWallet({ wallet: tgWallet, Tezos: Tezos })(dispatch);
+    } else {
+      disconnecTezostWallet({ wallet: tgWallet, setTezos: setTezos })(dispatch);
+    }
+  };
 
   return (
     <nav
@@ -311,12 +395,21 @@ export const Navbar = (): JSX.Element => {
           {isModalOpen && isLogout && <Disconnect closeModal={closeModal} />}
 
           <span className="mx-2"> | </span>
-          {account ? (
-            <span>{ellipseAddress(account)}</span>
+          {blockchainDapp === "Avalanche" ? (
+            account ? (
+              <span>{ellipseAddress(account)}</span>
+            ) : (
+              <FaWallet
+                className="text-white cursor-pointer mx-3"
+                onClick={async () => connectWallet()}
+              />
+            )
+          ) : tezosAccount.userAddress !== "" ? (
+            <span>{ellipseAddress(tezosAccount.userAddress)}</span>
           ) : (
             <FaWallet
               className="text-white cursor-pointer mx-3"
-              onClick={async () => connectWallet()}
+              onClick={async (e) => handleTezosWallet(e)}
             />
           )}
           <div className="flex items-center ml-4 text-white">
