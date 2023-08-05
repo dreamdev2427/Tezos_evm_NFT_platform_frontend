@@ -250,9 +250,34 @@ export const Navbar = (): JSX.Element => {
       !tezosAccount ||
       !tezosAccount?.userAddress
     ) {
-      alert("doing tezos wallet connection !");
+      console.log("doing tezos wallet connection !");
       console.log("tgWallet >>> ", tgWallet);
-      connectTezosWallet({ wallet: tgWallet, Tezos: Tezos })(dispatch);
+      try {
+        // Values you want to keep
+        const keysToKeep = ["beacon:sdk_version", "beacon:sdk-secret-seed"];
+        const preservedValues = {};
+
+        // Save the values you want to keep
+        keysToKeep.forEach((key) => {
+          preservedValues[key] = localStorage.getItem(key);
+        });
+
+        console.log("clear storage !");
+        // Clear all local storage
+        localStorage.clear();
+
+        // Restore the values you want to keep
+        keysToKeep.forEach((key) => {
+          localStorage.setItem(key, preservedValues[key]);
+        });
+        console.log("done clear!");
+      } catch (error) {
+        console.log(error);
+      }
+      console.log("do connect");
+      setTimeout(() => {
+        connectTezosWallet({ wallet: tgWallet, Tezos: Tezos })(dispatch);
+      }, 1000);
     } else {
       disconnecTezostWallet({ wallet: tgWallet, setTezos: setTezos })(dispatch);
     }
