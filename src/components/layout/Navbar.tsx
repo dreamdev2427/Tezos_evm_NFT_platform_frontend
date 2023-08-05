@@ -166,6 +166,9 @@ export const Navbar = (): JSX.Element => {
       setWallet(wallet_instance);
     } catch (err) {
       console.log("168 >> ", err);
+      if (blockchainDapp === "Tezos") {
+        window.location.reload();
+      }
       setTimeout(() => loadTezosClient(), 1000);
     }
   };
@@ -177,6 +180,9 @@ export const Navbar = (): JSX.Element => {
           await loadTezosClient();
         }
       } catch (err) {
+        if (blockchainDapp === "Tezos") {
+          window.location.reload();
+        }
         setTimeout(() => loadTezosClient(), 1000);
       }
     })();
