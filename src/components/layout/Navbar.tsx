@@ -165,28 +165,6 @@ export const Navbar = (): JSX.Element => {
       console.log("wallet_instance >>>> ", wallet_instance);
       setWallet(wallet_instance);
     } catch (err) {
-      try {
-        // Values you want to keep
-        const keysToKeep = ["beacon:sdk_version", "beacon:sdk-secret-seed"];
-        const preservedValues = {};
-
-        // Save the values you want to keep
-        keysToKeep.forEach((key) => {
-          preservedValues[key] = localStorage.getItem(key);
-        });
-
-        console.log("clear storage !");
-        // Clear all local storage
-        localStorage.clear();
-
-        // Restore the values you want to keep
-        keysToKeep.forEach((key) => {
-          localStorage.setItem(key, preservedValues[key]);
-        });
-        console.log("done clear!");
-      } catch (error) {
-        console.log(error);
-      }
       console.log("168 >> ", err);
       setTimeout(() => loadTezosClient(), 1000);
     }
