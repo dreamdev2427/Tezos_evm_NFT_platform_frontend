@@ -230,7 +230,7 @@ export const Navbar = (): JSX.Element => {
       setBalance(balanceTemporary);
     }
     if (blockchainDapp === "Tezos") {
-      if (tezosAccount.userAddress === "") {
+      if (tezosAccount.userAddress !== "") {
         setAccount(tezosAccount.userAddress);
         setBalance((((tezosAccount as any).balance || 0) / 1000000).toString());
       }
