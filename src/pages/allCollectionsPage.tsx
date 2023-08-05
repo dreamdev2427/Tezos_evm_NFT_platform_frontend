@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { SwiperSlide } from "swiper/react";
-import Carousel from "../components/layout/carousel";
+import Carousel from "../components/layout/Carousel";
 import Loading from "../components/Loading";
 import NewCollection from "../components/collection/NewCollection";
 import axios from "../config/axios";
@@ -18,7 +18,7 @@ const allCollectionsPage = (): JSX.Element => {
       .then((response) => {
         setNewCollections(response.data);
       })
-      .catch((error) => window.alert(error.response.data.error))
+      .catch((error) => window.alert(error.response.data.error + ","))
       .finally(() => setNewCollectionsLoading(false));
   };
 

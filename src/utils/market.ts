@@ -3,7 +3,7 @@ import { marketAddress } from "../../cache/deploy";
 import { Market__factory, NFT__factory } from "../../typechain";
 // import type { IBidInfo, INFTListed } from "../types";
 import { displayErrorMessage } from "./nft";
-import { getSigner } from ".";
+import { getSigner, isEmpty } from ".";
 
 /**
  * Buy a NFT
@@ -337,7 +337,7 @@ export const unlistItem = async (itemId: string): Promise<void> => {
 
   const marketContract = Market__factory.connect(marketAddress, signer);
 
-  const tx = await marketContract.unlistItem(itemId);
+  const tx = await (marketContract as any).unlistItem(itemId);
   await tx.wait();
   alert("Item unlisté !");
 };
@@ -350,7 +350,7 @@ export const checkItemListed = async (tokenId: string): Promise<boolean> => {
 
   const marketContract = Market__factory.connect(marketAddress, signer);
 
-  const isListed = await marketContract.checkItemListed(tokenId);
+  const isListed = await (marketContract as any).checkItemListed(tokenId);
 
   return isListed;
 };

@@ -1,9 +1,11 @@
 import NFTCard from "../components/nft/NFTCard";
 import LandingRow from "../components/layout/LandingRow";
 import Market from "./market";
+import { useDispatch } from "react-redux";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
+import { useEffect, useState } from "react";
 
 const Home = (): JSX.Element => {
   return (
