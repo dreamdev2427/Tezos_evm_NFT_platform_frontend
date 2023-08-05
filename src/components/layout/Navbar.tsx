@@ -270,7 +270,7 @@ export const Navbar = (): JSX.Element => {
 
   useEffect(() => {
     isConnected();
-  }, []);
+  }, [blockchainDapp]);
 
   useEffect(() => {
     const userData = localStorage.getItem("user-data");
