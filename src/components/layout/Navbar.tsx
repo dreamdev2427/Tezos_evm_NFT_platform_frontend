@@ -166,13 +166,15 @@ export const Navbar = (): JSX.Element => {
   };
 
   useEffect(() => {
-    try {
-      if (!Tezos) {
-        await loadTezosClient();
+    (async () => {
+      try {
+        if (!Tezos) {
+          await loadTezosClient();
+        }
+      } catch (err) {
+        setTimeout(() => loadTezosClient(), 1000);
       }
-    } catch (err) {
-      setTimeout(() => loadTezosClient(), 1000);
-    }
+    })();
   }, [Tezos]);
 
   useEffect(() => {
