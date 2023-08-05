@@ -23,7 +23,7 @@ const NFTsOfCollection = ({
     setLoading(true);
 
     axios
-      .get("/evm/nft/collection", {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/nft/collection`, {
         params: {
           collectionAddress,
         },

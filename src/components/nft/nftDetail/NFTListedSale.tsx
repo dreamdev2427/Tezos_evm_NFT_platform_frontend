@@ -39,7 +39,7 @@ const NFTListedSale = ({
     }
 
     axios
-      .post("/evm/market/buy", {
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/market/buy`, {
         userId: userAccount.id,
         collectionAddress,
         tokenId: nft.tokenId,
@@ -108,12 +108,15 @@ const NFTListedSale = ({
     setSaleLoading(true);
 
     axios
-      .get("/evm/market/saleMarketItem", {
-        params: {
-          collectionAddress,
-          tokenId: nft.tokenId,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/market/saleMarketItem`,
+        {
+          params: {
+            collectionAddress,
+            tokenId: nft.tokenId,
+          },
+        }
+      )
       .then((response) => {
         console.log(response);
         setMarketItemId(response.data);

@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   //   }
   // };
 
-  console.log(process.env.NEXT_PUBLIC_API_ENDPOINT); // Log for production purpose
+  console.log(process.env.NEXT_PUBLIC_BACKEND_API_URL); // Log for production purpose
 
   // useEffect(() => {
   //   checkConnected();

@@ -32,7 +32,7 @@ const NFT = (): JSX.Element => {
     setLoading(true);
 
     axios
-      .get("/evm/nft", {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/nft`, {
         params: {
           collectionAddress,
           tokenId: tokenId.toString(),

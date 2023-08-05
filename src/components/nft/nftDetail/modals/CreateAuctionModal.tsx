@@ -29,13 +29,16 @@ const CreateAuctionModal = ({
 
   const createAuctionBdd = async (price: number): Promise<void> => {
     axios
-      .post("/evm/market/auction", {
-        floorPrice: price,
-        collectionAddress,
-        tokenId: Number.parseInt(tokenId),
-        userId,
-        endTime: dayjs(endTime),
-      })
+      .post(
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/market/auction`,
+        {
+          floorPrice: price,
+          collectionAddress,
+          tokenId: Number.parseInt(tokenId),
+          userId,
+          endTime: dayjs(endTime),
+        }
+      )
       .then((response) => {
         window.alert(response.data.success);
         closeModal();

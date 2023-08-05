@@ -16,11 +16,14 @@ const UserBids = ({ userId }: IUserBidsProps): JSX.Element => {
   const getUserBids = async (): Promise<void> => {
     setLoading(true);
     axios
-      .get("/evm/market/listOfBidsByUser", {
-        params: {
-          userId,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/market/listOfBidsByUser`,
+        {
+          params: {
+            userId,
+          },
+        }
+      )
       .then((response) => setUserBids(response.data))
       .catch((error) => alert(error.response.data.error))
       .finally(() => setLoading(false));

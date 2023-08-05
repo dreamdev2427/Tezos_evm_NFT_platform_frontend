@@ -16,7 +16,7 @@ const LikedNfts = ({ userId }: ILikedNftsProps): JSX.Element => {
   const getLikedNfts = async (): Promise<void> => {
     setLoading(true);
     axios
-      .get("/evm/nft/likedNfts", {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/nft/likedNfts`, {
         params: {
           userId,
         },

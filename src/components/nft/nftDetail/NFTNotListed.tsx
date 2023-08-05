@@ -54,11 +54,14 @@ const NFTNotListed = ({ nft, setNft }: INFTNotListedProps): JSX.Element => {
     }
 
     axios
-      .post("/evm/market/approveNft", {
-        userId: userAccount?.id,
-        collectionAddress: nft.collectionAddress,
-        tokenId: nft.tokenId,
-      })
+      .post(
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/market/approveNft`,
+        {
+          userId: userAccount?.id,
+          collectionAddress: nft.collectionAddress,
+          tokenId: nft.tokenId,
+        }
+      )
       .then((response) => {
         setNft({ ...nft, isApproved: response.data.success });
       })

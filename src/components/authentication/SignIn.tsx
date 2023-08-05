@@ -33,7 +33,7 @@ const SignIn = ({ switchToSignUp, closeModal }): JSX.Element => {
     }
 
     axios
-      .post("/user/login", {
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/user/login`, {
         email,
         password,
       })

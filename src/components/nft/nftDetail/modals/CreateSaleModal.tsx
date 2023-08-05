@@ -32,7 +32,7 @@ const CreateSaleModal = ({
    */
   const createSaleBdd = async (price: number): Promise<void> => {
     axios
-      .post("/evm/market/sale", {
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/market/sale`, {
         price,
         collectionAddress,
         tokenId,

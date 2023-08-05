@@ -16,11 +16,14 @@ const UserPurchases = ({ userId }: IUserPurchasesProps): JSX.Element => {
     setPurchasesLoading(true);
 
     axios
-      .get("/evm/market/listOfPurchasesByUser", {
-        params: {
-          userId,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/market/listOfPurchasesByUser`,
+        {
+          params: {
+            userId,
+          },
+        }
+      )
       .then((response) => setPurchases(response.data))
       .catch((error) => alert(error.response.data.error))
       .finally(() => setPurchasesLoading(false));

@@ -117,9 +117,13 @@ const Mint = (): JSX.Element => {
   const mintToBdd = async (formData: FormData): Promise<void> => {
     //STORE TO THE DB
     await axios
-      .post("/evm/nft/", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
+      .post(
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/nft/`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      )
       .then(() => {
         window.alert("NFT minté !");
         setNftFile(undefined);
@@ -206,11 +210,14 @@ const Mint = (): JSX.Element => {
 
     setLoading(true);
     axios
-      .get("/evm/collection/user", {
-        params: {
-          userId: userAccount.id,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/collection/user`,
+        {
+          params: {
+            userId: userAccount.id,
+          },
+        }
+      )
       .then((response) => {
         setUserCollections(response.data);
       })

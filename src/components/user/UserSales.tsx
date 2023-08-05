@@ -16,11 +16,14 @@ const UserSales = ({ userId }: IUserSalesProps): JSX.Element => {
     setLoading(true);
 
     axios
-      .get("/evm/market/listOfSalesByUser", {
-        params: {
-          userId,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/market/listOfSalesByUser`,
+        {
+          params: {
+            userId,
+          },
+        }
+      )
       .then((response) => setUserSales(response.data))
       .catch((error) => alert(error.response.data.error))
       .finally(() => setLoading(false));

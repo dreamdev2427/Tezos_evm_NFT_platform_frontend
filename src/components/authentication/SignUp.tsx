@@ -39,7 +39,7 @@ const SignUp = ({ switchToSignIn, closeModal }): JSX.Element => {
 
     setLoading(true);
     axios
-      .post("/user/create", {
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/user/create`, {
         firstName,
         lastName,
         email,
