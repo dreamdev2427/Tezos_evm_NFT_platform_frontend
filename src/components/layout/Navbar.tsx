@@ -133,43 +133,50 @@ export const Navbar = (): JSX.Element => {
     setIsSignUp(false);
   };
 
-  useEffect(() => {
-    (async () => {
-      const wallet_instance = new BeaconWallet({
-        name: "NFT Marketplace",
-        preferredNetwork: NetworkType.GHOSTNET,
-        colorMode: ColorMode.LIGHT,
-        disableDefaultEvents: false, // Disable all events / UI. This also disables the pairing alert.
-        eventHandlers: {
-          // To keep the pairing alert, we have to add the following default event handlers back
-          [BeaconEvent.PAIR_INIT]: {
-            handler: defaultEventCallbacks.PAIR_INIT,
-          },
-          [BeaconEvent.PAIR_SUCCESS]: {
-            handler: (data) => {
-              return data.publicKey;
-            },
+  const loadTezosClient = async () => {
+    const wallet_instance = new BeaconWallet({
+      name: "NFT Marketplace",
+      preferredNetwork: NetworkType.GHOSTNET,
+      colorMode: ColorMode.LIGHT,
+      disableDefaultEvents: false, // Disable all events / UI. This also disables the pairing alert.
+      eventHandlers: {
+        // To keep the pairing alert, we have to add the following default event handlers back
+        [BeaconEvent.PAIR_INIT]: {
+          handler: defaultEventCallbacks.PAIR_INIT,
+        },
+        [BeaconEvent.PAIR_SUCCESS]: {
+          handler: (data) => {
+            return data.publicKey;
           },
         },
-      });
-      Tezos.setWalletProvider(wallet_instance);
-      const activeAccount = await wallet_instance.client.getActiveAccount();
-      if (activeAccount) {
-        const userAddress = await wallet_instance.getPKH();
-        const balance = await Tezos.tz.getBalance(userAddress);
-
-        _walletConfig({
-          userAddress: userAddress,
-          balance: balance.toNumber(),
-        })(dispatch);
-      }
-      console.log("wallet_instance >>>> ", wallet_instance);
-      setWallet(wallet_instance);
-    })();
-  }, [Tezos, dispatch]);
+      },
+    });
+    Tezos.setWalletProvider(wallet_instance);
+    const activeAccount = await wallet_instance.client.getActiveAccount();
+    if (activeAccount) {
+      const userAddress = await wallet_instance.getPKH();
+      const balance = await Tezos.tz.getBalance(userAddress);
+      _walletConfig({
+        userAddress: userAddress,
+        balance: balance.toNumber(),
+      })(dispatch);
+    }
+    console.log("wallet_instance >>>> ", wallet_instance);
+    setWallet(wallet_instance);
+  };
 
   useEffect(() => {
-    fetchData({ Tezos })(dispatch);
+    try {
+      if (!Tezos) {
+        await loadTezosClient();
+      }
+    } catch (err) {
+      setTimeout(() => loadTezosClient(), 1000);
+    }
+  }, [Tezos]);
+
+  useEffect(() => {
+    if (Tezos) fetchData({ Tezos })(dispatch);
   }, [Tezos, dispatch]);
 
   const handleClick = (): void => {
