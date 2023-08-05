@@ -231,7 +231,8 @@ export const Navbar = (): JSX.Element => {
     }
     if (blockchainDapp === "Tezos") {
       if (tezosAccount.userAddress === "") {
-        setAccount(address);
+        setAccount(tezosAccount.userAddress);
+        setBalance((((tezosAccount as any).balance || 0) / 1000000).toString());
       }
     }
   };
