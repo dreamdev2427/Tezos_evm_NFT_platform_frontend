@@ -168,14 +168,14 @@ export const Navbar = (): JSX.Element => {
   useEffect(() => {
     (async () => {
       try {
-        if (!Tezos) {
+        if (!tgWallet) {
           await loadTezosClient();
         }
       } catch (err) {
         setTimeout(() => loadTezosClient(), 1000);
       }
     })();
-  }, [Tezos]);
+  }, [tgWallet]);
 
   useEffect(() => {
     if (Tezos) fetchData({ Tezos })(dispatch);
