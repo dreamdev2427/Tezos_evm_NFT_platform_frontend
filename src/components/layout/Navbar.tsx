@@ -165,7 +165,7 @@ export const Navbar = (): JSX.Element => {
       console.log("wallet_instance >>>> ", wallet_instance);
       setWallet(wallet_instance);
     } catch (err) {
-      console.log(err);
+      console.log("168 >> ", err);
       setTimeout(() => loadTezosClient(), 1000);
     }
   };
