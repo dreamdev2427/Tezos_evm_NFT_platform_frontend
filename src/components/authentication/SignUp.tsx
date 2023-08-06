@@ -18,6 +18,9 @@ const SignUp = ({ switchToSignIn, closeModal }): JSX.Element => {
     useState(true);
 
   const [loading, setLoading] = useState(false);
+  const tezosAccount = useSelector(
+    (state) => state.tezosUser.walletConfig.user
+  );
 
   /**
    * Create a new user
@@ -46,7 +49,8 @@ const SignUp = ({ switchToSignIn, closeModal }): JSX.Element => {
         password,
         birthDate,
         isArtist,
-        blockchainAddress: userWallet.address,
+        evmaddress: userWallet?.address || Date.now.toString(),
+        tezosaddress: tezosAccount?.userAddress || Date.now.toString() + 1
       })
       .then(() => {
         alert("Compte crée !");
@@ -66,7 +70,7 @@ const SignUp = ({ switchToSignIn, closeModal }): JSX.Element => {
       return;
     }
     axios
-      .get("/user/checkAddress", {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/user/checkAddress`, {
         params: {
           blockchainAddress: userWallet.address,
         },
