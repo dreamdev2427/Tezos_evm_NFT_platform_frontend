@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "rc-slider/assets/index.css";
 import Compressor from "compressorjs";
-import { create as ipfsHttpClient } from "ipfs-http-client";
 import { useSelector } from "react-redux";
 import { ImUpload2 } from "react-icons/im";
 import { selectWallet, selectAccount } from "../config/redux/userAccount";
@@ -13,13 +12,7 @@ import axios from "../config/axios";
 import CreateCollectionModal from "../components/collection/CreateCollectionModal";
 import NFTPreview from "../components/nft/NFTPreview";
 import NotLogged from "../components/NotLogged";
-
-const client = ipfsHttpClient({
-  protocol: "https",
-  host: "ipfs.infura.io",
-  port: 5001,
-  apiPath: "/api/v0",
-});
+import { pinFileToIPFS, pinJSONToIPFS } from "../utils/pinatasdk";
 
 const Mint = (): JSX.Element => {
   const userWallet = useSelector(selectWallet);
@@ -99,11 +92,9 @@ const Mint = (): JSX.Element => {
     const returnedFile = await compressFile(file);
 
     try {
-      const added = await client.add(returnedFile, {
-        progress: (prog) => console.log(`received: ${prog}`),
-      });
+      const added = await pinFileToIPFS(returnedFile);
 
-      const url = `${process.env.NEXT_PUBLIC_IPFS_GATEWAY}${added.path}`;
+      const url = `${process.env.NEXT_PUBLIC_IPFS_GATEWAY}${added}`;
       setIpfsFile(url);
     } catch (error) {
       window.alert(`Error uploading file : ${error}`);
@@ -150,13 +141,13 @@ const Mint = (): JSX.Element => {
     }
 
     try {
-      const ipfsData = JSON.stringify({
+      const ipfsData = {
         name,
         description,
         image: ipfsFile,
-      });
-      const added = await client.add(ipfsData);
-      const url = `${process.env.NEXT_PUBLIC_IPFS_GATEWAY}${added.path}`;
+      };
+      const added = await pinJSONToIPFS(ipfsData);
+      const url = `${process.env.NEXT_PUBLIC_IPFS_GATEWAY}${added}`;
 
       setTxProcessing(true);
 
