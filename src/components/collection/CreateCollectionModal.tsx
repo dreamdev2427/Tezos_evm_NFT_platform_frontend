@@ -220,7 +220,7 @@ const CreateCollectionModal = ({
 
               <div className="flex flex-col my-5">
                 <label className="font-semibold" htmlFor="royalties">
-                  Royalties (%):{" "}
+                  Royalties ({royalties}%):{" "}
                 </label>
 
                 {/**  @ts-ignore */}
