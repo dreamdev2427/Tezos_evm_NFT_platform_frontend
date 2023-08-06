@@ -73,8 +73,6 @@ export const Navbar = (): JSX.Element => {
   );
   const [tgWallet, setWallet] = useState(null);
 
-  const navigate = useRouter();
-
   const [active, setActive] = useState(false);
   const [account, setAccount] = useState<string>("");
   const [chainId, setChainId] = useState<number | undefined>();
