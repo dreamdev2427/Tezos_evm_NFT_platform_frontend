@@ -17,8 +17,6 @@ const SignIn = ({ switchToSignUp, closeModal }): JSX.Element => {
 
   const dispatch = useDispatch();
 
-  const navigate = useRouter();
-
   /**
    * Login user
    */
@@ -47,7 +45,6 @@ const SignIn = ({ switchToSignUp, closeModal }): JSX.Element => {
           })
         );
         closeModal();
-        navigate.reload();
         alert(`Bienvenue ${email} !`);
       })
       .catch((error) => window.alert(error.response.data.error));
