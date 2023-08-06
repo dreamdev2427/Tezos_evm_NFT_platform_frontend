@@ -137,7 +137,7 @@ const CreateCollectionModal = ({
 
     try {
       const added = await pinJSONToIPFS(data);
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      const url = `${process.env.NEXT_PUBLIC_IPFS_GATEWAY}${added}`;
       console.log(" json url >>> ", url);
       setTxProcessing(true);
       //  STORE TO THE BLOCKCHAIN
