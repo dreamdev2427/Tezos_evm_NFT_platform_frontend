@@ -246,8 +246,7 @@ const Mint = (): JSX.Element => {
       <div className="flex flex-col md:w-1/2 lg:items-end">
         {userCollections.length > ZERO ? (
           <form className="flex flex-col m-1 lg:w-4/5" onSubmit={mintNFT}>
-            {/**  FORM CREATE NFT */}
-            <h1 className="text-5xl text-center my-10 ">Créez votre NFT</h1>
+            <h1 className="text-5xl text-center my-10 ">Create your NFT</h1>
             {txProcessing ? (
               <TxProcessing />
             ) : (
@@ -258,7 +257,7 @@ const Mint = (): JSX.Element => {
                     <span className="font-semibold">{nftFile?.name}</span>
                   </label>
                   <label className="input-file w-fit my-2 flex justify-between items-center">
-                    <span>Choisir un fichier</span>
+                    <span>Choose file</span>
                     <ImUpload2 className="mx-2" />
                     <input
                       type="file"
@@ -269,7 +268,7 @@ const Mint = (): JSX.Element => {
                 </div>
                 <div className="flex flex-col my-5">
                   <label className="font-semibold" htmlFor="name">
-                    Nom:{" "}
+                    Name:{" "}
                   </label>
                   <input
                     type="text"
@@ -294,7 +293,7 @@ const Mint = (): JSX.Element => {
 
                 <div className="flex flex-col my-5">
                   <label className="font-semibold" htmlFor="collection">
-                    Collections disponibles:{" "}
+                    Collections available:{" "}
                   </label>
                   {userCollections.length > ZERO && (
                     <>
@@ -320,7 +319,7 @@ const Mint = (): JSX.Element => {
 
                   <div className="flex flex-col my-5">
                     <label className="font-semibold" htmlFor="description">
-                      Nombre d'exemplaire (séries):{" "}
+                      Number of copies (series):{" "}
                     </label>
                     <input
                       className="input-form"
@@ -333,9 +332,9 @@ const Mint = (): JSX.Element => {
                       }
                     />
                     <span className="text-zinc-400 text-sm italic my-2">
-                      Note: Ce nombre correspond au nombre d'exemplaires qui
-                      sera crée pour un même NFT. Le nombre d'exemplaires peut
-                      aller de 1 à 20
+                      Note: This number corresponds to the number of copies that
+                      will be created for the same NFT. The number of copies can
+                      go from 1 to 20
                     </span>
                   </div>
 
@@ -344,12 +343,12 @@ const Mint = (): JSX.Element => {
                     className="btn-secondary my-4 self-start"
                     onClick={openCreateCollectionModal}
                   >
-                    Créer une nouvelle collection
+                    Create a new collection
                   </button>
                   <span className="text-zinc-400 text-sm italic">
-                    Note: En créant votre nouvelle collection, vous pourrez
-                    choisir son nom, sa description, son logo et sur quelle
-                    blockchain elle y sera disponible
+                    Note: When creating your new collection, you will be able to
+                    choose its name, its description, its logo and on which
+                    blockchain it will be available there
                   </span>
                 </div>
 
@@ -365,20 +364,20 @@ const Mint = (): JSX.Element => {
         ) : (
           <>
             <span className="self-start my-10">
-              Aucune collection créée, pour créer des NFTs il faut au préalable
-              créer une collection
+              No collection created, to create NFTs you must first create a
+              collection
             </span>
             <button
               type="button"
               className="btn-secondary my-4 self-start"
               onClick={openCreateCollectionModal}
             >
-              Créer une nouvelle collection
+              Create a new collection
             </button>
             <span className="text-zinc-400 text-sm italic">
-              Note: En créant votre nouvelle collection, vous pourrez choisir
-              son nom, sa description, son logo et sur quelle blockchain elle y
-              sera disponible
+              Note: When creating your new collection, you will be able to
+              choose its name, its description, its logo and on which blockchain
+              it is there will be available
             </span>
           </>
         )}

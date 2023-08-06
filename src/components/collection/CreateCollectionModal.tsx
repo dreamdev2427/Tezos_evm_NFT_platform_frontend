@@ -160,9 +160,9 @@ const CreateCollectionModal = ({
       contentLabel="Example Modal"
       ariaHideApp={false}
     >
-      <div className="flex flex-col p-5">
+      <div className="flex flex-col p-5 absolute z-10">
         <h3 className="font-semibold self-start my-4">
-          Créez votre collection
+          Create your collection
         </h3>
         {txProcessing ? (
           <TxProcessing />
@@ -170,7 +170,7 @@ const CreateCollectionModal = ({
           <>
             <form className="flex flex-col">
               <label className="input-file w-fit my-2 flex justify-between items-center">
-                <span>Choisir un fichier </span>
+                <span>Choose file </span>
                 <ImUpload2 className="mx-2" />
                 <input
                   type="file"
@@ -183,7 +183,7 @@ const CreateCollectionModal = ({
 
               <div className="flex flex-col my-2">
                 <label className="font-semibold" htmlFor="collectionName">
-                  Nom :
+                  Name :
                 </label>
                 <input
                   className="input-form"
@@ -196,7 +196,7 @@ const CreateCollectionModal = ({
 
               <div className="flex flex-col my-2">
                 <label className="font-semibold" htmlFor="collectionSymbol">
-                  Symbole :
+                  Symbol :
                 </label>
                 <input
                   className="input-form"
