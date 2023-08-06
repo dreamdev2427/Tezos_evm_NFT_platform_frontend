@@ -86,6 +86,7 @@ const CreateCollectionModal = ({
   ): Promise<void> => {
     if (!userAccount) return;
     //  STORE TO THE DB
+    console.log("save new collection to db");
     await axios
       .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/collection/`, {
         name: collectionName,
@@ -140,11 +141,12 @@ const CreateCollectionModal = ({
       console.log(" json url >>> ", url);
       setTxProcessing(true);
       //  STORE TO THE BLOCKCHAIN
+      console.log(" before create a collection ");
       await createCollection(collectionName, collectionSymbol, url)
-        .then(
-          async (collectionAddress) =>
-            await createCollectionToBdd(collectionAddress)
-        )
+        .then(async (collectionAddress) => {
+          console.log(" new collection address >>> ", collectionAddress);
+          await createCollectionToBdd(collectionAddress);
+        })
         .finally(() => setTxProcessing(false));
     } catch (error) {
       console.error("Error creating collection: ", error);
