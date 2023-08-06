@@ -70,6 +70,7 @@ const CreateCollectionModal = ({
     try {
       const added = await pinFileToIPFS(file);
       const url = `${process.env.NEXT_PUBLIC_IPFS_GATEWAY}${added}`;
+      console.log(" collection image url >>> ", url);
       setIpfsFileCollection(url);
     } catch (error) {
       console.log("Error uploading file: ", error);
