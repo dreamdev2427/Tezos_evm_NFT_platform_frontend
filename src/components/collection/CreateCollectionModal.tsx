@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import Slider from "rc-slider";
 import { ImUpload2 } from "react-icons/im";
-import { create as ipfsHttpClient } from "ipfs-http-client";
 import { useSelector } from "react-redux";
 import { selectAccount } from "../../config/redux/userAccount";
 import { createCollection, MAX_ROYALTIES } from "../../utils";
@@ -11,13 +10,6 @@ import TxProcessing from "../TxProcessing";
 import BlockchainBox from "../BlockchainBox";
 import { TypeBlockchain } from "../../types";
 import { pinFileToIPFS, pinJSONToIPFS } from "../../utils/pinatasdk";
-
-const client = ipfsHttpClient({
-  protocol: "https",
-  host: "ipfs.infura.io",
-  port: 5001,
-  apiPath: "/api/v0",
-});
 
 const customStyles = {
   content: {
@@ -160,7 +152,6 @@ const CreateCollectionModal = ({
       style={customStyles}
       contentLabel="Example Modal"
       ariaHideApp={false}
-      className={`z-1001`}
     >
       <div className="flex flex-col p-5 ">
         <h3 className="font-semibold self-start my-4">
