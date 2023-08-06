@@ -159,8 +159,9 @@ const CreateCollectionModal = ({
       style={customStyles}
       contentLabel="Example Modal"
       ariaHideApp={false}
+      className={`z-1001`}
     >
-      <div className="flex flex-col p-5 absolute z-10">
+      <div className="flex flex-col p-5 ">
         <h3 className="font-semibold self-start my-4">
           Create your collection
         </h3>
