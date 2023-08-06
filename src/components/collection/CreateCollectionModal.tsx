@@ -52,10 +52,6 @@ const CreateCollectionModal = ({
   // PROCESSING STEP
   const [txProcessing, setTxProcessing] = useState(false);
 
-  useEffect(() => {
-    setRoyaltyVal(royalties);
-  }, [royalties]);
-
   /**
    * Handle collection file onChange
    * @param e
@@ -233,6 +229,7 @@ const CreateCollectionModal = ({
                   value={royalties}
                   onChange={(value) => {
                     console.log("royalti >>> ", value, royalties);
+                    setRoyaltyVal(value);
                     setRoyalties(value);
                   }}
                   max={MAX_ROYALTIES}
