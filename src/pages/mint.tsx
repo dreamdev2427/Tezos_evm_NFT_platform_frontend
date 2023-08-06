@@ -201,7 +201,7 @@ const Mint = (): JSX.Element => {
         userId: userAccount.id,
       })
       .then((response) => {
-        setUserCollections(response.data);
+        setUserCollections(response.data.data);
       })
       .catch((error) => window.alert(error.response.data.error))
       .finally(() => setLoading(false));
