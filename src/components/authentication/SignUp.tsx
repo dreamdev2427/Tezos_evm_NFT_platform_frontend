@@ -50,7 +50,7 @@ const SignUp = ({ switchToSignIn, closeModal }): JSX.Element => {
         birthDate,
         isArtist,
         evmaddress: userWallet?.address || Date.now.toString(),
-        tezosaddress: tezosAccount?.userAddress || Date.now.toString() + 1
+        tezosaddress: tezosAccount?.userAddress || Date.now.toString()+"1"
       })
       .then(() => {
         alert("Compte crée ! \n You're registered.");
@@ -77,7 +77,10 @@ const SignUp = ({ switchToSignIn, closeModal }): JSX.Element => {
       })
       .then((response) => {
         setAddressAlreadyRegistered(response.data);
-      });
+      })
+      .catch(error => {
+        console.log(error);
+    })
   };
 
   useEffect(() => {
