@@ -10,6 +10,7 @@ import axios from "../../config/axios";
 import TxProcessing from "../TxProcessing";
 import BlockchainBox from "../BlockchainBox";
 import { TypeBlockchain } from "../../types";
+import { pinFileToIPFS } from "../../utils/pinatasdk";
 
 const client = ipfsHttpClient({
   protocol: "https",
@@ -67,11 +68,8 @@ const CreateCollectionModal = ({
     setCollectionFile(file.name);
 
     try {
-      const added = await client.add(file, {
-        progress: (prog) => console.log(`received: ${prog}`),
-      });
-
-      const url = `${process.env.NEXT_PUBLIC_IPFS_INFURA_ENDPOINT}${added.path}`;
+      const added = await pinFileToIPFS(file);
+      const url = `${process.env.NEXT_PUBLIC_IPFS_GATEWAY}${added}`;
       setIpfsFileCollection(url);
     } catch (error) {
       console.log("Error uploading file: ", error);

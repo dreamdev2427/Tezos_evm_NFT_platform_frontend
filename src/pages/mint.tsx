@@ -103,7 +103,7 @@ const Mint = (): JSX.Element => {
         progress: (prog) => console.log(`received: ${prog}`),
       });
 
-      const url = `${process.env.NEXT_PUBLIC_IPFS_INFURA_ENDPOINT}${added.path}`;
+      const url = `${process.env.NEXT_PUBLIC_IPFS_GATEWAY}${added.path}`;
       setIpfsFile(url);
     } catch (error) {
       window.alert(`Error uploading file : ${error}`);
@@ -160,7 +160,7 @@ const Mint = (): JSX.Element => {
         image: ipfsFile,
       });
       const added = await client.add(ipfsData);
-      const url = `${process.env.NEXT_PUBLIC_IPFS_INFURA_ENDPOINT}${added.path}`;
+      const url = `${process.env.NEXT_PUBLIC_IPFS_GATEWAY}${added.path}`;
 
       setTxProcessing(true);
 

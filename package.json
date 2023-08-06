@@ -9,7 +9,7 @@
     "lint": "eslint ./src"
   },
   "dependencies": {
-    "@airgap/beacon-sdk": "^4.0.6",
+    "@airgap/beacon-sdk": "3.3.0",
     "@headlessui/react": "^1.6.5",
     "@openzeppelin/contracts": "^4.5.0",
     "@reduxjs/toolkit": "^1.8.0",
