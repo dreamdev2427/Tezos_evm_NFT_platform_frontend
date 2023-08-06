@@ -110,11 +110,13 @@ export const Navbar = (): JSX.Element => {
   };
 
   const signInUser = (): void => {
+    setUserExpanded(false);
     setIsModalOpen(true);
     setIsSignIn(true);
   };
 
   const signUpUser = (): void => {
+    setUserExpanded(false);
     setIsModalOpen(true);
     setIsSignUp(true);
   };
