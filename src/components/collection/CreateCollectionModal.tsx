@@ -10,7 +10,7 @@ import axios from "../../config/axios";
 import TxProcessing from "../TxProcessing";
 import BlockchainBox from "../BlockchainBox";
 import { TypeBlockchain } from "../../types";
-import { pinFileToIPFS } from "../../utils/pinatasdk";
+import { pinFileToIPFS, pinJSONToIPFS } from "../../utils/pinatasdk";
 
 const client = ipfsHttpClient({
   protocol: "https",
@@ -128,16 +128,16 @@ const CreateCollectionModal = ({
       return;
     }
 
-    const data = JSON.stringify({
+    const data = {
       description: collectionDescription,
       image: ipfsFileCollection,
       name: collectionName,
-    });
+    };
 
     try {
-      const added = await client.add(data);
+      const added = await pinJSONToIPFS(data);
       const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-
+      console.log(" json url >>> ", url);
       setTxProcessing(true);
       //  STORE TO THE BLOCKCHAIN
       await createCollection(collectionName, collectionSymbol, url)
