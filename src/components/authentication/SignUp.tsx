@@ -49,8 +49,8 @@ const SignUp = ({ switchToSignIn, closeModal }): JSX.Element => {
         password,
         dateOfBirth: birthDate,
         isArtist,
-        evmaddress: userWallet?.address || (new Date).getTime().toString(),
-        tezosaddress: tezosAccount?.userAddress || (new Date).getTime().toString()+"1"
+        evmaddress: userWallet?.address || "",
+        tezosaddress: tezosAccount?.userAddress || ""
       })
       .then(() => {
         alert("Compte crée ! \n You're registered.");
