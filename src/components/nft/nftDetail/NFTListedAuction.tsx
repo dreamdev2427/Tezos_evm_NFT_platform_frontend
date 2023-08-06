@@ -52,7 +52,7 @@ const NFTListedAuction = ({
    */
   const fetchAuctionInfo = async (): Promise<void> => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/market/auction`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/market/auction`, {
         params: {
           collectionAddress,
           tokenId,
@@ -80,7 +80,7 @@ const NFTListedAuction = ({
     }
 
     axios
-      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/market/bid`, {
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/market/bid`, {
         bidder: userAccount.id,
         bid: floatBid,
         collectionAddress,
@@ -155,7 +155,7 @@ const NFTListedAuction = ({
 
     axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/market/auctionMarketItem`,
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/market/auctionMarketItem`,
         {
           params: {
             collectionAddress,

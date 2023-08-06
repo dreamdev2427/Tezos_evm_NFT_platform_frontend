@@ -15,9 +15,7 @@ const allNFTs = (): JSX.Element => {
     setNftLoading(true);
 
     axios
-      .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/market/marketItems`
-      )
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/market/marketItems`)
       .then((response) => setListedNFTs(response.data))
       .catch((error) => window.alert(error.response.data.error))
       .finally(() => setNftLoading(false));

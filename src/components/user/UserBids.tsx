@@ -17,7 +17,7 @@ const UserBids = ({ userId }: IUserBidsProps): JSX.Element => {
     setLoading(true);
     axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/market/listOfBidsByUser`,
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/market/listOfBidsByUser`,
         {
           params: {
             userId,

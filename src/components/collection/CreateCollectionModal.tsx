@@ -86,7 +86,7 @@ const CreateCollectionModal = ({
     if (!userAccount) return;
     //  STORE TO THE DB
     await axios
-      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/collection/`, {
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/collection/`, {
         name: collectionName,
         description: collectionDescription,
         image: ipfsFileCollection,

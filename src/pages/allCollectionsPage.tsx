@@ -14,7 +14,7 @@ const allCollectionsPage = (): JSX.Element => {
   const getCollections = async (): Promise<void> => {
     setNewCollectionsLoading(true);
     axios
-      .get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/collection/list`)
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/collection/list`)
       .then((response) => {
         setNewCollections(response.data);
       })

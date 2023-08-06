@@ -25,14 +25,11 @@ const Market = (): JSX.Element => {
   const getAllCollections = async (): Promise<void> => {
     setCollectionsLoading(true);
     axios
-      .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/collection/list`,
-        {
-          params: {
-            startIndex: 1,
-          },
-        }
-      )
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/collection/list`, {
+        params: {
+          startIndex: 1,
+        },
+      })
       .then((response) => {
         setAllCollections(response.data);
         setCollectionsLoading(false);
@@ -47,9 +44,7 @@ const Market = (): JSX.Element => {
     setNftLoading(true);
 
     axios
-      .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/market/marketItems`
-      )
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/market/marketItems`)
       .then((response) => setListedNFTs(response.data))
       .catch((error) => window.alert(error.response.data.error))
       .finally(() => setNftLoading(false));

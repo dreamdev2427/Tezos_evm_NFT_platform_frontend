@@ -38,14 +38,11 @@ const Account = (): JSX.Element => {
   const getUserCollections = async (): Promise<void> => {
     setLoading(true);
     axios
-      .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/collection/user`,
-        {
-          params: {
-            userId,
-          },
-        }
-      )
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/collection/user`, {
+        params: {
+          userId,
+        },
+      })
       .then((response) => {
         setuserCollections(response.data);
       })

@@ -19,15 +19,12 @@ const BidsHistory = ({
   const getBidsHistory = async (): Promise<void> => {
     setLoading(true);
     axios
-      .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/market/listBids`,
-        {
-          params: {
-            tokenId,
-            collectionAddress,
-          },
-        }
-      )
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/market/listBids`, {
+        params: {
+          tokenId,
+          collectionAddress,
+        },
+      })
       .then((response) => setBids(response.data))
       .catch((error) => alert(error.response.data.error))
       .finally(() => setLoading(false));

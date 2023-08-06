@@ -17,7 +17,7 @@ const UserPurchases = ({ userId }: IUserPurchasesProps): JSX.Element => {
 
     axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/market/listOfPurchasesByUser`,
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/market/listOfPurchasesByUser`,
         {
           params: {
             userId,

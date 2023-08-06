@@ -35,16 +35,13 @@ const NFTImageDetail = ({
     setCheckLikedLoading(true);
 
     axios
-      .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/nft/checkIfLiked`,
-        {
-          params: {
-            userId: userAccount.id,
-            tokenId,
-            collectionAddress,
-          },
-        }
-      )
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/nft/checkIfLiked`, {
+        params: {
+          userId: userAccount.id,
+          tokenId,
+          collectionAddress,
+        },
+      })
       .then((response) => setIsLiked(response.data))
       .catch((error) => window.alert(error.response.data.error))
       .finally(() => setCheckLikedLoading(false));
@@ -59,7 +56,7 @@ const NFTImageDetail = ({
 
     axios
       .post(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/nft/${
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/nft/${
           isLiked ? "dislike" : "like"
         }`,
         {

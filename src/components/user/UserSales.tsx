@@ -17,7 +17,7 @@ const UserSales = ({ userId }: IUserSalesProps): JSX.Element => {
 
     axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/evm/market/listOfSalesByUser`,
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/market/listOfSalesByUser`,
         {
           params: {
             userId,
