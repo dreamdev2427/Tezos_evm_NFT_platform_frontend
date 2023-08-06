@@ -60,8 +60,6 @@ import SignUp from "../../components/authentication/SignUp";
 import Disconnect from "../authentication/Disconnect";
 
 export const Navbar = (): JSX.Element => {
-  
-  const navigate = useRouter();
   const dispatch = useDispatch();
   const blockchainDapp = useSelector(selectBlockchainDapp);
   const userAccount = useSelector(selectAccount);
@@ -72,6 +70,8 @@ export const Navbar = (): JSX.Element => {
     new TezosToolkit("https://ghostnet.smartpy.io/")
   );
   const [tgWallet, setWallet] = useState(null);
+
+  const navigate = useRouter();
 
   const [active, setActive] = useState(false);
   const [account, setAccount] = useState<string>("");
@@ -169,7 +169,7 @@ export const Navbar = (): JSX.Element => {
     } catch (err) {
       console.log("168 >> ", err);
       if (blockchainDapp === "Tezos") {
-        navigate.reload();
+        window.location.reload();
       }
       setTimeout(() => loadTezosClient(), 1000);
     }
@@ -183,7 +183,7 @@ export const Navbar = (): JSX.Element => {
         }
       } catch (err) {
         if (blockchainDapp === "Tezos") {
-          navigate.reload();
+          window.location.reload();
         }
         setTimeout(() => loadTezosClient(), 1000);
       }
@@ -244,13 +244,13 @@ export const Navbar = (): JSX.Element => {
      */
     if (window.ethereum !== undefined) {
       window.ethereum.on("chainChanged", () => {
-        navigate.reload();
+        window.location.reload();
       });
       window.ethereum.on("accountsChanged", () => {
         localStorage.removeItem("user-data");
         dispatch(setUserLogout());
         //  Check connected userId if equals user new account address
-        navigate.reload();
+        window.location.reload();
       });
     }
   });
