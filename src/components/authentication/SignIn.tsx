@@ -6,6 +6,7 @@ import {
   selectAccount,
   selectWallet,
 } from "../../config/redux/userAccount";
+import jwt_decode from "jwt-decode";
 import axios from "../../config/axios";
 
 const SignIn = ({ switchToSignUp, closeModal }): JSX.Element => {
@@ -37,15 +38,23 @@ const SignIn = ({ switchToSignUp, closeModal }): JSX.Element => {
       })
       .then((response) => {
         localStorage.setItem("user-data", JSON.stringify(response.data)); //  Set data inside browser storage
-        dispatch(
-          setUserLogin({
-            id: response.data.id,
-            email: response.data.email,
-            authToken: response.data.authToken,
-          })
-        );
-        closeModal();
-        alert(`Bienvenue ${email} !`);
+        let token = response?.data?.token;
+        if (token) {
+          const decoded = jwt_decode(response.data.token);
+          console.log("decoded >>> ", decoded);
+          dispatch(
+            setUserLogin({
+              id: decoded.id,
+              email: decoded.email,
+              authToken: token,
+            })
+          );
+          closeModal();
+          alert(`Bienvenue ${email} !`);
+        } else {
+          closeModal();
+          alert("Failed in login!");
+        }
       })
       .catch((error) => window.alert(error.response.data.error));
   };
