@@ -45,7 +45,7 @@ const SignIn = ({ switchToSignUp, closeModal }): JSX.Element => {
           dispatch(
             setUserLogin({
               id: decoded.id,
-              email: decoded.email,
+              email: decoded._doc.email,
               authToken: token,
             })
           );
