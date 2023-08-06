@@ -197,11 +197,11 @@ const Mint = (): JSX.Element => {
 
     setLoading(true);
     axios
-      .get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/collection/user`, {
-        params: {
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/collection/user`, {
+        {
           userId: userAccount.id,
         },
-      })
+      )
       .then((response) => {
         setUserCollections(response.data);
       })
