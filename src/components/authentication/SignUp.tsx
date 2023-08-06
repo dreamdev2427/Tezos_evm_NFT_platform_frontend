@@ -53,7 +53,7 @@ const SignUp = ({ switchToSignIn, closeModal }): JSX.Element => {
         tezosaddress: tezosAccount?.userAddress || Date.now.toString() + 1
       })
       .then(() => {
-        alert("Compte crée !");
+        alert("Compte crée ! \n You're registered.");
         closeModal();
       })
       .catch((error) => {
