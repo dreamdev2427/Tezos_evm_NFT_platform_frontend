@@ -167,7 +167,7 @@ const Mint = (): JSX.Element => {
 
           const data = {
             image: ipfsFile,
-            tokenId: tokenId + 1,
+            tokenId: Number(tokenId) + Number(1),
             collectionAddress: collection,
             userId: userAccount.id,
             description,
