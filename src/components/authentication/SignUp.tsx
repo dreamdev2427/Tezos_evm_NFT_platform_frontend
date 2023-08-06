@@ -43,11 +43,11 @@ const SignUp = ({ switchToSignIn, closeModal }): JSX.Element => {
     setLoading(true);
     axios
       .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/user/create`, {
-        firstName,
-        lastName,
+        firstname: firstName,
+        lastname: lastName,
         email,
         password,
-        birthDate,
+        dateOfBirth: birthDate,
         isArtist,
         evmaddress: userWallet?.address || Date.now.toString(),
         tezosaddress: tezosAccount?.userAddress || Date.now.toString()+"1"
