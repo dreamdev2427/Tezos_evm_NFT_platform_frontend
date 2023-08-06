@@ -175,42 +175,45 @@ const CreateCollectionModal = ({
               <span>{collectionFile}</span>
 
               <div className="flex flex-col my-2">
-                <label className="font-semibold" htmlFor="collectionName">
+                {/* <label className="font-semibold" htmlFor="collectionName">
                   Name :
-                </label>
+                </label> */}
                 <input
                   className="input-form"
                   type="text"
                   name="collectionName"
                   value={collectionName}
+                  placeholder={"name"}
                   onChange={(e) => setCollectionName(e.target.value)}
                 />
               </div>
 
               <div className="flex flex-col my-2">
-                <label className="font-semibold" htmlFor="collectionSymbol">
+                {/* <label className="font-semibold" htmlFor="collectionSymbol">
                   Symbol :
-                </label>
+                </label> */}
                 <input
                   className="input-form"
                   type="text"
                   name="collectionSymbol"
                   value={collectionSymbol}
+                  placeholder={"symbol"}
                   onChange={(e) => setCollectionSymbol(e.target.value)}
                 />
               </div>
 
               <div className="flex flex-col my-2">
-                <label
+                {/* <label
                   className="font-semibold"
                   htmlFor="collectionDescription"
                 >
                   Description :
-                </label>
+                </label> */}
                 <textarea
                   className="input-form"
                   name="collectionDescription"
                   value={collectionDescription}
+                  placeholder="Description"
                   onChange={(e) => setCollectionDescription(e.target.value)}
                 />
               </div>

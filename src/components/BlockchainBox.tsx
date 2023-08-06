@@ -16,7 +16,7 @@ const BlockchainBox = ({
 }: IBlockchainBoxProps): JSX.Element => {
   return (
     <div
-      className={`flex justify-around items-center rounded-lg w-36 px-2 py-6 my-1 outline outline-1 outline-zinc-500 cursor-pointer ${
+      className={`flex justify-around items-center rounded-lg w-36 px-2 py-3 my-1 outline outline-1 outline-zinc-500 cursor-pointer ${
         chosen ? "outline-4 bg-zinc-100" : "outline-1"
       } ${className && className}`}
       onClick={() => setBlockchain(blockchain)}

@@ -5,11 +5,11 @@
 @layer components {
   /** BUTTON*/
   .btn-primary {
-    @apply z-10 py-6 px-10 w-fit text-2xl bg-zinc-800 text-white font-semibold rounded-md shadow-xl hover:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:ring-opacity-75 transition ease-in-out hover:scale-105;
+    @apply z-10 py-3 px-10 w-fit text-2xl bg-zinc-800 text-white font-semibold rounded-md shadow-xl hover:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:ring-opacity-75 transition ease-in-out hover:scale-105;
   }
 
   .btn-primary-outlined {
-    @apply py-6 px-10 w-fit text-2xl outline outline-1 outline-zinc-800 rounded-md shadow-md transition ease-in-out hover:scale-105;
+    @apply py-3 px-10 w-fit text-2xl outline outline-1 outline-zinc-800 rounded-md shadow-md transition ease-in-out hover:scale-105;
   }
 
   .btn-secondary {
