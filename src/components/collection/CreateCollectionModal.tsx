@@ -226,7 +226,10 @@ const CreateCollectionModal = ({
                 {/**  @ts-ignore */}
                 <Slider
                   value={royalties}
-                  onChange={(value) => setRoyalties(value)}
+                  onChange={(value) => {
+                    console.log("royalti >>> ", value, royalties);
+                    setRoyalties(value);
+                  }}
                   max={MAX_ROYALTIES}
                   step={1}
                 />
