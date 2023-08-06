@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import Slider from "rc-slider";
 import { ImUpload2 } from "react-icons/im";
@@ -40,6 +40,7 @@ const CreateCollectionModal = ({
 }: ICreateCollectionModalProps): JSX.Element => {
   const userAccount = useSelector(selectAccount);
 
+  const [royaltyVal, setRoyaltyVal] = useState(0);
   const [collectionName, setCollectionName] = useState("");
   const [collectionDescription, setCollectionDescription] = useState("");
   const [collectionSymbol, setCollectionSymbol] = useState("");
@@ -50,6 +51,10 @@ const CreateCollectionModal = ({
 
   // PROCESSING STEP
   const [txProcessing, setTxProcessing] = useState(false);
+
+  useEffect(() => {
+    setRoyaltyVal(royalties);
+  }, [royalties]);
 
   /**
    * Handle collection file onChange
@@ -220,7 +225,7 @@ const CreateCollectionModal = ({
 
               <div className="flex flex-col my-5">
                 <label className="font-semibold" htmlFor="royalties">
-                  Royalties ({royalties}%):{" "}
+                  Royalties ({royaltyVal}%):{" "}
                 </label>
 
                 {/**  @ts-ignore */}
