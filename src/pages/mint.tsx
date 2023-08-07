@@ -87,18 +87,16 @@ const Mint = (): JSX.Element => {
     try {
       const file = e.target.files[0];
 
-      setTxProcessing(true);
       setNftPreview(URL.createObjectURL(file));
       setNftFile(file);
-
+      setLoading(true);
       const returnedFile = await compressFile(file);
 
       const added = await pinFileToIPFS(returnedFile);
 
       const url = `${process.env.NEXT_PUBLIC_IPFS_GATEWAY}${added}`;
       setIpfsFile(url);
-
-      setTxProcessing(false);
+      setLoading(false);
     } catch (error) {
       window.alert(`Error uploading file : ${error}`);
     }
