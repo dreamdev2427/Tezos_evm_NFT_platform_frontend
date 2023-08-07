@@ -179,7 +179,7 @@ const NFTNotListed = ({ nft, setNft }: INFTNotListedProps): JSX.Element => {
       {isAuctionModalOpen && (
         <CreateAuctionModal
           closeModal={closeAuctionModal}
-          nftId={nft._id}
+          nftId={nft?._id}
           collectionAddress={nft.collectionAddress}
           tokenId={nft.tokenId.toString()}
           userId={userAccount.id}
@@ -188,7 +188,7 @@ const NFTNotListed = ({ nft, setNft }: INFTNotListedProps): JSX.Element => {
 
       {isSaleModalOpen && (
         <CreateSaleModal
-          nftId={nft._id}
+          nftId={nft?._id}
           closeModal={closeSaleModal}
           collectionAddress={nft.collectionAddress}
           tokenId={nft.tokenId.toString()}
