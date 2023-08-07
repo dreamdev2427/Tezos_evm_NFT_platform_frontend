@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "../../../config/axios";
 import ListTypeBox from "../../layout/ListTypeBox";
-import { setApprovalForAll } from "../../../utils";
+import { isApprovedForAll, setApprovalForAll } from "../../../utils";
 import TxProcessing from "../../TxProcessing";
 import type { INFTData, TypeListing } from "../../../types";
 import NotLogged from "../../NotLogged";
@@ -23,6 +23,7 @@ const NFTNotListed = ({ nft, setNft }: INFTNotListedProps): JSX.Element => {
   const [isAuctionModalOpen, setIsAuctionModalOpen] = useState(false);
   const [isSaleModalOpen, setIsSaleModalOpen] = useState(false);
 
+  const [isApproved, setIsApproved] = useState(false);
   const [approveLoading, setApproveLoading] = useState(false);
 
   //--------  Handle close/open modals --------//
@@ -45,42 +46,51 @@ const NFTNotListed = ({ nft, setNft }: INFTNotListedProps): JSX.Element => {
   };
 
   /**
-   * Approve the market to manipulate the NFT in database
-   */
-  const approveBdd = async (): Promise<void> => {
-    if (!userAccount) {
-      alert("Pas de compte connecté");
-      return;
-    }
-
-    axios
-      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/market/approveNft`, {
-        userId: userAccount?.id,
-        collectionAddress: nft.collectionAddress,
-        tokenId: nft.tokenId,
-      })
-      .then((response) => {
-        setNft({ ...nft, isApproved: response.data.success });
-      })
-      .catch((error) => {
-        alert(error.response.data.error);
-      })
-      .finally(() => setApproveLoading(false));
-  };
-
-  /**
    * Approve the market to manipulate the NFT on blockchain
    */
   const approve = async (): Promise<void> => {
-    setApproveLoading(true);
+    if (
+      !nft.collectionAddress ||
+      nft.collectionAddress === undefined ||
+      nft.collectionAddress === null
+    ) {
+      alert("invalid collection address!");
+      return;
+    }
 
-    setApprovalForAll(true, nft.collectionAddress)
-      .then(async () => {
-        await approveBdd();
+    if (nft.collection_id.blockchain === "Avalanche") {
+      if (
+        !nft.owner.evmaddress ||
+        nft.owner.evmaddress === undefined ||
+        nft.owner.evmaddress === null
+      ) {
+        alert("invalid evm address!");
+        return;
+      }
 
-        alert("Approuvé");
-      })
-      .finally(() => setApproveLoading(false));
+      //read approvement at here
+      const isApprovedAll = await isApprovedForAll(
+        nft.owner.evmaddress,
+        nft.collectionAddress
+      );
+      console.log("isApprovedAll >>> ", isApprovedAll);
+
+      if (isApprovedAll === true) {
+        setIsApproved(true);
+      } else {
+        setApproveLoading(true);
+
+        setApprovalForAll(true, nft.collectionAddress)
+          .then(async () => {
+            alert("Approuvé");
+            setIsApproved(true);
+          })
+          .catch(() => {
+            setIsApproved(false);
+          })
+          .finally(() => setApproveLoading(false));
+      }
+    }
   };
 
   if (!userAccount) return <NotLogged />;
@@ -108,7 +118,7 @@ const NFTNotListed = ({ nft, setNft }: INFTNotListedProps): JSX.Element => {
         </div>
       </div>
 
-      {!nft.isApproved && (
+      {!isApproved && (
         <button
           className="btn-primary font-bold text-2xl my-14 w-full"
           onClick={approve}
@@ -117,7 +127,7 @@ const NFTNotListed = ({ nft, setNft }: INFTNotListedProps): JSX.Element => {
         </button>
       )}
 
-      {nft.isApproved ? (
+      {isApproved ? (
         <>
           {" "}
           {saleType === "Sale" ? (

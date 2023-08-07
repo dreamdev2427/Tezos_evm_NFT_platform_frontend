@@ -35,6 +35,7 @@ export const buyNFT = async (
  * @param bool {boolean}
  * @param contractAddress {string}
  */
+
 export const setApprovalForAll = async (
   bool: boolean,
   contractAddress: string
