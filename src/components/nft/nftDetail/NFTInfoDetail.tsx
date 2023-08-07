@@ -46,7 +46,9 @@ const NFTInfoDetail = ({ nft }: INFTInfoDetailProps): JSX.Element => {
           <AiTwotoneCalendar size={20} className="mr-2 text-gray-500" />
           <span className="text-gray-500">Listé le</span>
         </div>
-        <span className="text-sm lg:text-xl">07/07/2022</span>
+        <span className="text-sm lg:text-xl">
+          {new Date(nft.updatedAt).toLocaleDateString()}
+        </span>
 
         <br />
 
