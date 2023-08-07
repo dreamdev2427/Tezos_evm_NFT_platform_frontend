@@ -87,6 +87,7 @@ const Mint = (): JSX.Element => {
     try {
       const file = e.target.files[0];
 
+      setTxProcessing(true);
       setNftPreview(URL.createObjectURL(file));
       setNftFile(file);
 
@@ -96,6 +97,8 @@ const Mint = (): JSX.Element => {
 
       const url = `${process.env.NEXT_PUBLIC_IPFS_GATEWAY}${added}`;
       setIpfsFile(url);
+
+      setTxProcessing(false);
     } catch (error) {
       window.alert(`Error uploading file : ${error}`);
     }
@@ -127,7 +130,9 @@ const Mint = (): JSX.Element => {
    */
   const mintNFT = async (): Promise<void> => {
     if (!ipfsFile || !collection) {
-      window.alert("Un des champs est manquant !");
+      window.alert(
+        `Un des champs est manquant ! >>> ` + ipfsFile + ", " + collection
+      );
       return;
     }
 
