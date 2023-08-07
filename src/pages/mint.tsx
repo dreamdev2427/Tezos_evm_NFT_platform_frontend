@@ -335,7 +335,7 @@ const Mint = (): JSX.Element => {
 
                 <button
                   className="btn-primary self-center px-6 py-4 my-2 lg:my-10 w-full"
-                  type="submit"
+                  onClick={() => mintNFT()}
                 >
                   Minter
                 </button>
