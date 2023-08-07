@@ -23,12 +23,10 @@ const NFTsOfCollection = ({
     setLoading(true);
 
     axios
-      .get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/nft/collection`, {
-        params: {
-          collectionAddress,
-        },
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/nft/collection`, {
+        collectionAddress,
       })
-      .then((response) => setNFTsOfCollection(response.data))
+      .then((response) => setNFTsOfCollection(response.data.data))
       .catch((error) => window.alert(error.response.data.error))
       .finally(() => setLoading(false));
   };

@@ -33,9 +33,9 @@ const CollectionInfoRow = ({
           <span className="font-semibold">
             <a
               href={`${BLOCK_EXPLORER_LINK}${
-                collection.blockchain === "Avalanche"
-                  ? collection?.userId?.evmaddress
-                  : collection?.userId?.tezosaddress
+                collectionInfo.blockchain === "Avalanche"
+                  ? collectionInfo?.userId?.evmaddress
+                  : collectionInfo?.userId?.tezosaddress
               }`}
             >
               {collectionInfo?.userId?.name}
