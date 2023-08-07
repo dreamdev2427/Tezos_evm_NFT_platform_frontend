@@ -125,9 +125,7 @@ const Mint = (): JSX.Element => {
   /**
    * Create an new NFT
    */
-  const mintNFT = async (e): Promise<void> => {
-    e.preventDefault();
-
+  const mintNFT = async (): Promise<void> => {
     if (!ipfsFile || !collection) {
       window.alert("Un des champs est manquant !");
       return;
@@ -226,7 +224,7 @@ const Mint = (): JSX.Element => {
     <div className="flex flex-col lg:flex-row justify-center items-center my-10 py-2 h-full">
       <div className="flex flex-col md:w-1/2 lg:items-end">
         {userCollections.length > ZERO ? (
-          <form className="flex flex-col m-1 lg:w-4/5" onSubmit={mintNFT}>
+          <div className="flex flex-col m-1 lg:w-4/5">
             <h1 className="text-5xl text-center my-10 ">Create your NFT</h1>
             {txProcessing ? (
               <TxProcessing />
@@ -341,7 +339,7 @@ const Mint = (): JSX.Element => {
                 </button>
               </>
             )}
-          </form>
+          </div>
         ) : (
           <>
             <span className="self-start my-10">
