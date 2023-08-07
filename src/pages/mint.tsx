@@ -105,12 +105,10 @@ const Mint = (): JSX.Element => {
    * Store the new NFT to the database
    * @param formData {FormData}
    */
-  const mintToBdd = async (formData: FormData): Promise<void> => {
+  const mintToBdd = async (data: any): Promise<void> => {
     //STORE TO THE DB
     await axios
-      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/nft/`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/nft/`, data)
       .then(() => {
         window.alert("NFT minté !");
         setNftFile(undefined);
@@ -130,7 +128,7 @@ const Mint = (): JSX.Element => {
   const mintNFT = async (e): Promise<void> => {
     e.preventDefault();
 
-    if (!nftFile || !collection) {
+    if (!ipfsFile || !collection) {
       window.alert("Un des champs est manquant !");
       return;
     }
@@ -163,21 +161,22 @@ const Mint = (): JSX.Element => {
       //  STORE TO THE BLOCKCHAIN
       await mint(url, Math.ceil(royaltiesCollection), collection)
         .then(async () => {
-          const formData = new FormData();
-
           const data = {
             image: ipfsFile,
             tokenId: Number(tokenId) + Number(1),
             collectionAddress: collection,
             userId: userAccount.id,
+            owner: userAccount.id,
+            metadataURI: url,
+            collectionId: userCollections.find(
+              (item) =>
+                item.contractAddress.toLowerCase() === collection.toLowerCase()
+            )._id,
             description,
             name,
           };
 
-          formData.append("file", nftFile);
-          formData.append("data", JSON.stringify(data));
-
-          await mintToBdd(formData);
+          await mintToBdd(data);
         })
         .finally(() => setTxProcessing(false));
     } catch (error) {
