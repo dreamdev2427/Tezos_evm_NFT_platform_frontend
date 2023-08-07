@@ -84,14 +84,14 @@ const Mint = (): JSX.Element => {
    * @param e
    */
   const handleNftFile = async (e): Promise<void> => {
-    const file = e.target.files[0];
-
-    setNftPreview(URL.createObjectURL(file));
-    setNftFile(file);
-
-    const returnedFile = await compressFile(file);
-
     try {
+      const file = e.target.files[0];
+
+      setNftPreview(URL.createObjectURL(file));
+      setNftFile(file);
+
+      const returnedFile = await compressFile(file);
+
       const added = await pinFileToIPFS(returnedFile);
 
       const url = `${process.env.NEXT_PUBLIC_IPFS_GATEWAY}${added}`;
@@ -137,6 +137,8 @@ const Mint = (): JSX.Element => {
     }
 
     try {
+      setTxProcessing(true);
+
       const ipfsData = {
         name,
         description,
@@ -144,8 +146,6 @@ const Mint = (): JSX.Element => {
       };
       const added = await pinJSONToIPFS(ipfsData);
       const url = `${process.env.NEXT_PUBLIC_IPFS_GATEWAY}${added}`;
-
-      setTxProcessing(true);
 
       //  Find selected collection and increment its token id
       const tokenId =
