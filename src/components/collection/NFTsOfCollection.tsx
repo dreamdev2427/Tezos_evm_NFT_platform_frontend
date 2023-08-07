@@ -74,12 +74,16 @@ const NFTsOfCollection = ({
               }).map((nftData) => {
                 return (
                   <NFTCard
-                    collectionAddress={nftData.collectionAddress}
-                    creatorAddress={nftData.creatorAddress}
+                    collectionAddress={nftData.collection_id.collectionAddress}
+                    creatorAddress={
+                      nftData.collection_id.blockchain === "Avalanche"
+                        ? nftData.collection_id.userId.evmaddress
+                        : nftData.collection_id.userId.tezosaddress
+                    }
                     metadata={nftData.metaData}
                     tokenId={nftData.tokenId.toString()}
-                    isListed={!!nftData.listing}
-                    key={`${nftData.collectionAddress} ${nftData.tokenId}`}
+                    isListed={nftData.isSale > 0}
+                    key={`${nftData.collection_id.collectionAddress} ${nftData.tokenId}`}
                   />
                 );
               })}
