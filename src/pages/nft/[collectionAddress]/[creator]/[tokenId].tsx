@@ -77,6 +77,16 @@ const NFT = (): JSX.Element => {
                       : "Vous n'êtes pas le détenteur de cet NFT"}
                   </span>
 
+                  {nft.isSale > 0 &&
+                    nft.price &&
+                    userAccount?.id !== nft.owner?._id && (
+                      <span>
+                        This nft has been listed for the{" "}
+                        {nft.isSale === 1 ? "instant sale." : "auction sale."}
+                        <br></br>
+                        Price is {nft.price}.
+                      </span>
+                    )}
                   {/**  LISTED */}
                   {nft.isSale > 0 &&
                     nft.price &&
