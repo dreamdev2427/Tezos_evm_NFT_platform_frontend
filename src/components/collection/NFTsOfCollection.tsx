@@ -77,8 +77,8 @@ const NFTsOfCollection = ({
                     collectionAddress={nftData.collection_id.collectionAddress}
                     creatorAddress={
                       nftData.collection_id.blockchain === "Avalanche"
-                        ? nftData.collection_id.userId.evmaddress
-                        : nftData.collection_id.userId.tezosaddress
+                        ? nftData.userId.evmaddress
+                        : nftData.userId.tezosaddress
                     }
                     metadata={{ image: nftData.image, name: nftData.name }}
                     tokenId={nftData.tokenId.toString()}
