@@ -78,13 +78,16 @@ const NFT = (): JSX.Element => {
                   </span>
 
                   {/**  LISTED */}
-                  {nft.isSale > 0 && nft.price && (
-                    <NFTListed
-                      nft={nft}
-                      collectionAddress={collectionAddress as string}
-                      bigNumberPrice={nft.price?.toString()}
-                    />
-                  )}
+                  {nft.isSale > 0 &&
+                    nft.price &&
+                    userAccount?.id !==
+                      nft.owner._id(
+                        <NFTListed
+                          nft={nft}
+                          collectionAddress={collectionAddress as string}
+                          bigNumberPrice={nft.price?.toString()}
+                        />
+                      )}
 
                   <br />
                   {/**  NOT LISTED */}
