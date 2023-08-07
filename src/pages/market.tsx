@@ -82,14 +82,18 @@ const Market = (): JSX.Element => {
           <Carousel itemsLength={allCollections.length}>
             {allCollections.slice(0, 10).map((collection) => {
               return (
-                <SwiperSlide key={collection.contractAddress}>
+                <SwiperSlide key={collection.collectionAddress}>
                   <CollectionCard
-                    key={collection.contractAddress}
+                    key={collection.collectionAddress}
                     imageSrc={collection.image}
                     name={collection.name ?? "Nom collection"}
                     description={collection.description}
-                    address={collection.contractAddress}
-                    creator={collection.creatorAddress}
+                    address={collection.collectionAddress}
+                    creator={
+                      collection.blockchain === "Avalanche"
+                        ? collection.userId.evmaddress
+                        : collection.userId.tezosaddress
+                    }
                   />
                 </SwiperSlide>
               );

@@ -15,8 +15,8 @@ export enum CollectionCategory {
   ABSTRAIT = "abstrait",
 }
 export interface ICollection {
-  contractAddress: string;
-  creatorAddress: string;
+  collectionAddress: string;
+  creator: string;
   description: string;
   image: string;
   name: string;
