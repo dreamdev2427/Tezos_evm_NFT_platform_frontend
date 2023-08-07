@@ -59,12 +59,14 @@ const NFTListedAuction = ({
       })
       .then((response) => {
         const info: IAuctionRealTimeInfo = response.data.data;
-        setAuctionRealTimeInfo({
-          highestBid: info.highestBid,
-          endingTime: info.endingTime,
-          highestBidder: info.highestBidder,
-          isFinished: info.isFinished,
-        });
+        if (info !== null) {
+          setAuctionRealTimeInfo({
+            highestBid: info.highestBid,
+            endingTime: info.endingTime,
+            highestBidder: info.highestBidder,
+            isFinished: info.isFinished,
+          });
+        }
       })
       .catch((error) => window.alert(error.response.data.error));
   };
