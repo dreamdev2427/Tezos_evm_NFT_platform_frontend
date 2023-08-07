@@ -27,13 +27,11 @@ const Collection = (): JSX.Element => {
     setLoading(true);
 
     axios
-      .get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/collection/info`, {
-        params: {
-          collectionAddress,
-        },
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/collection/info`, {
+        collectionAddress,
       })
       .then((response) => {
-        setCollectionInfo(response.data);
+        setCollectionInfo(response.data.data);
       })
       .catch((error) => window.alert(error.response.data.error))
       .finally(() => setLoading(false));

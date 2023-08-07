@@ -20,7 +20,7 @@ const CollectionInfoRow = ({
           className="mb-2 text-indigo-800"
           onClick={async () =>
             navigate.push(
-              `${BLOCK_EXPLORER_LINK}/${collectionInfo.contractAddress}`
+              `${BLOCK_EXPLORER_LINK}/${collectionInfo.collectionAddress}`
             )
           }
           aria-hidden={true}
@@ -31,8 +31,14 @@ const CollectionInfoRow = ({
         <span className="text-xl text-zinc-800 my-2">
           Créée par{" "}
           <span className="font-semibold">
-            <a href={`${BLOCK_EXPLORER_LINK}${collectionInfo.creatorAddress}`}>
-              {collectionInfo.creatorAddress}
+            <a
+              href={`${BLOCK_EXPLORER_LINK}${
+                collection.blockchain === "Avalanche"
+                  ? collection?.userId?.evmaddress
+                  : collection?.userId?.tezosaddress
+              }`}
+            >
+              {collectionInfo?.userId?.name}
             </a>
           </span>
         </span>
