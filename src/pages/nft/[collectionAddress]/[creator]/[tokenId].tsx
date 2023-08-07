@@ -72,7 +72,7 @@ const NFT = (): JSX.Element => {
                   <div className="divider" />
 
                   <span>
-                    {userAccount?.id === nft.owner._id
+                    {userAccount?.id === nft.owner?._id
                       ? "Vous êtes le détenteur de cet NFT"
                       : "Vous n'êtes pas le détenteur de cet NFT"}
                   </span>
@@ -81,7 +81,7 @@ const NFT = (): JSX.Element => {
                   {nft.isSale > 0 &&
                     nft.price &&
                     userAccount?.id !==
-                      nft.owner._id(
+                      nft.owner?._id(
                         <NFTListed
                           nft={nft}
                           collectionAddress={collectionAddress as string}
