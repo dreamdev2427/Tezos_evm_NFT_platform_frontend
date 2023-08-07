@@ -101,7 +101,7 @@ const NFTNotListed = ({ nft, setNft }: INFTNotListedProps): JSX.Element => {
         return;
       }
 
-      if (isApprovedAll === true) {
+      if (isApproved === true) {
         setIsApproved(true);
       } else {
         setApproveLoading(true);
