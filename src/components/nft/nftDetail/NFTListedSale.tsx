@@ -8,6 +8,7 @@ import { buyNFT } from "../../../utils";
 import TxProcessing from "../../TxProcessing";
 import { selectAccount, selectWallet } from "../../../config/redux/userAccount";
 import Loading from "../../Loading";
+import { selectTezosWallet } from "../../../config/redux/tezos_reducer";
 
 interface INFTListedSaleProps {
   collectionAddress: string;
@@ -22,6 +23,7 @@ const NFTListedSale = ({
 }: INFTListedSaleProps): JSX.Element => {
   const router = useRouter();
 
+  const tezosWallet = useSelector(selectTezosWallet);
   const userAccount = useSelector(selectAccount);
   const userWallet = useSelector(selectWallet);
   const [creatorAddress, setCreatorAddress] = useState("");
@@ -80,9 +82,20 @@ const NFTListedSale = ({
     }
 
     //<= including gas fess
+
     if (
+      nft?.collection_id?.blockchain === "Avalanche" &&
       Number.parseFloat(userWallet.balanceTemporary) <
-      Number.parseFloat(bigNumberPrice)
+        Number.parseFloat(bigNumberPrice)
+    ) {
+      alert("Pas assez de fonds");
+      return;
+    }
+
+    if (
+      nft?.collection_id?.blockchain === "Tezos" &&
+      Number.parseFloat(tezosWallet?.userBalance) <
+        Number.parseFloat(bigNumberPrice)
     ) {
       alert("Pas assez de fonds");
       return;
