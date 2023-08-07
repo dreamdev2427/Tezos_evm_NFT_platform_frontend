@@ -10,6 +10,7 @@ dayjs.extend(utc);
 
 interface ICreateAuctionModalProps {
   closeModal: () => void;
+  nftId: string;
   tokenId: string;
   collectionAddress: string;
   userId: string;
@@ -17,6 +18,7 @@ interface ICreateAuctionModalProps {
 
 const CreateSaleModal = ({
   closeModal,
+  nftId,
   tokenId,
   collectionAddress,
   userId,
@@ -32,14 +34,13 @@ const CreateSaleModal = ({
    */
   const createSaleBdd = async (price: number): Promise<void> => {
     axios
-      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/market/sale`, {
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/nft/updateForSale`, {
+        itemId: nftId,
         price,
-        collectionAddress,
-        tokenId,
-        userId: userId,
+        period: 0,
       })
       .then((response) => {
-        window.alert(response.data.success);
+        window.alert(response.data.code === 0);
         closeModal();
       })
       .catch((error) => window.alert(error.response.data.error))
@@ -118,7 +119,7 @@ const CreateSaleModal = ({
               {txProcessing ? (
                 <TxProcessing />
               ) : (
-                <form className="space-y-6" action="#">
+                <div className="space-y-6" action="#">
                   <label htmlFor="price" className="my-2">
                     Prix de vente :
                   </label>
@@ -146,7 +147,7 @@ const CreateSaleModal = ({
                       Les enchères
                     </button>
                   </div>
-                </form>
+                </div>
               )}
             </div>
           </div>
