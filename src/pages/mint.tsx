@@ -101,7 +101,7 @@ const Mint = (): JSX.Element => {
   const mintToBdd = async (data: any): Promise<void> => {
     //STORE TO THE DB
     await axios
-      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/nft/`, data)
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/nft/`, { ...data })
       .then(() => {
         window.alert("NFT minté !");
         setNftFile(undefined);
@@ -111,7 +111,7 @@ const Mint = (): JSX.Element => {
 
         loadUserCollections(); //nbNfts incremented and in case user mint twice in a row
       })
-      .catch((error) => window.alert(error.response.data.error))
+      .catch((error) => window.alert(error.response?.data?.error))
       .finally(() => setTxProcessing(false));
   };
 
