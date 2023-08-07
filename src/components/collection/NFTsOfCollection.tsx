@@ -84,6 +84,7 @@ const NFTsOfCollection = ({
                     tokenId={nftData.tokenId.toString()}
                     isListed={nftData.isSale > 0}
                     key={`${nftData.collection_id.collectionAddress} ${nftData.tokenId}`}
+                    price={nftData?.price}
                   />
                 );
               })}

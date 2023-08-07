@@ -9,6 +9,7 @@ const NFTCard = ({
   collectionAddress,
   creatorAddress,
   metadata,
+  price,
 }: INFTCardProps): JSX.Element => {
   const router = useRouter();
 
@@ -52,7 +53,7 @@ const NFTCard = ({
           {isListed ? "Listé" : "Non listé"}
         </span>
         <div className="flex items-center">
-          <span>15</span>
+          <span>{price}</span>
           <AiOutlineHeart className="mx-1 hover:text-red-400" size={20} />
         </div>
       </div>
