@@ -42,7 +42,7 @@ const Market = (): JSX.Element => {
     setNftLoading(true);
 
     axios
-      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/item/marketItems`)
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/nft/marketItems`)
       .then((response) => setListedNFTs(response.data.data))
       .catch((error) => window.alert(error.response.data.error))
       .finally(() => setNftLoading(false));
