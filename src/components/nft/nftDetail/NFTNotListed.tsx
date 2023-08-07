@@ -45,6 +45,39 @@ const NFTNotListed = ({ nft, setNft }: INFTNotListedProps): JSX.Element => {
     setIsAuctionModalOpen(false);
   };
 
+  useEffect(() => {
+    const readApproval = async () => {
+      if (
+        !nft.collectionAddress ||
+        nft.collectionAddress === undefined ||
+        nft.collectionAddress === null
+      ) {
+        alert("invalid collection address!");
+        return;
+      }
+
+      if (nft.collection_id.blockchain === "Avalanche") {
+        if (
+          !nft.owner.evmaddress ||
+          nft.owner.evmaddress === undefined ||
+          nft.owner.evmaddress === null
+        ) {
+          alert("invalid evm address!");
+          return;
+        }
+
+        //read approvement at here
+        const isApprovedAll = await isApprovedForAll(
+          nft.owner.evmaddress,
+          nft.collectionAddress
+        );
+        console.log("isApprovedAll >>> ", isApprovedAll);
+        setIsApproved(isApprovedAll);
+      }
+    };
+    readApproval();
+  }, [nft]);
+
   /**
    * Approve the market to manipulate the NFT on blockchain
    */
@@ -67,13 +100,6 @@ const NFTNotListed = ({ nft, setNft }: INFTNotListedProps): JSX.Element => {
         alert("invalid evm address!");
         return;
       }
-
-      //read approvement at here
-      const isApprovedAll = await isApprovedForAll(
-        nft.owner.evmaddress,
-        nft.collectionAddress
-      );
-      console.log("isApprovedAll >>> ", isApprovedAll);
 
       if (isApprovedAll === true) {
         setIsApproved(true);
