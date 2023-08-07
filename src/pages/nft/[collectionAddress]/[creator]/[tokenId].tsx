@@ -89,7 +89,7 @@ const NFT = (): JSX.Element => {
                   <br />
                   {/**  NOT LISTED */}
 
-                  {!nft.isSale > 0 && nft.owner?._id === userAccount?.id && (
+                  {!(nft.isSale > 0) && nft.owner?._id === userAccount?.id && (
                     <NFTNotListed nft={nft} setNft={setNft} />
                   )}
                 </div>
