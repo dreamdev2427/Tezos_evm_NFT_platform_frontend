@@ -58,7 +58,7 @@ const NFT = (): JSX.Element => {
               <div className="flex flex-col-reverse lg:flex-row justify-center w-full p-3 lg:p-20">
                 {/**  NFT IMAGE & META INFO */}
                 <NFTImageDetail
-                  image={nft.metaData.image}
+                  image={nft.image}
                   collectionAddress={collectionAddress as string}
                   tokenId={tokenId as string}
                   nbLikes={nbLikes ?? 0}
@@ -72,13 +72,13 @@ const NFT = (): JSX.Element => {
                   <div className="divider" />
 
                   <span>
-                    {userAccount?.id === nft.ownerAddress
+                    {userAccount?.id === nft.owner._id
                       ? "Vous êtes le détenteur de cet NFT"
                       : "Vous n'êtes pas le détenteur de cet NFT"}
                   </span>
 
                   {/**  LISTED */}
-                  {nft.listing && nft.price && (
+                  {nft.isSale > 0 && nft.price && (
                     <NFTListed
                       nft={nft}
                       collectionAddress={collectionAddress as string}
@@ -89,7 +89,7 @@ const NFT = (): JSX.Element => {
                   <br />
                   {/**  NOT LISTED */}
 
-                  {!nft.listing && nft.ownerAddress === userAccount?.id && (
+                  {!nft.isSale > 0 && nft.owner?._id === userAccount?.id && (
                     <NFTNotListed nft={nft} setNft={setNft} />
                   )}
                 </div>

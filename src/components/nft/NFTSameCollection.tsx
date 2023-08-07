@@ -22,9 +22,16 @@ const NFTSameCollection = ({ nfts }: INFTSameCollectionProps): JSX.Element => {
             collectionAddress="Adresse random"
             isListed={false}
             tokenId={nft.tokenId.toString()}
-            key={`${nft.metaData.name} ${nft.tokenId}`}
-            creatorAddress={nft.creatorAddress}
-            metadata={nft.metaData}
+            key={`${nft.name} ${nft.tokenId}`}
+            creatorAddress={
+              nft.collection_id.blockchain === "Avalanche"
+                ? nft.userId.evmaddress
+                : nft.userId.tezosaddress
+            }
+            metadata={{
+              name: nft.name,
+              image: nft.image,
+            }}
           />
         ))}
       </div>

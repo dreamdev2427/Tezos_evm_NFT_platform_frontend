@@ -21,7 +21,7 @@ const NFTInfoDetail = ({ nft }: INFTInfoDetailProps): JSX.Element => {
           <BsTextLeft size={20} className="mr-2 text-gray-500" />
           <span className="text-gray-500">Description</span>
         </div>
-        <span className="text-sm lg:text-xl">{nft.metaData.description}</span>
+        <span className="text-sm lg:text-xl">{nft.description}</span>
       </div>
 
       <br />
