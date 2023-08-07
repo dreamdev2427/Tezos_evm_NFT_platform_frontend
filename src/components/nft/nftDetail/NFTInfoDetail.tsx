@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AiTwotoneCalendar } from "react-icons/ai";
 import { BsTextLeft } from "react-icons/bs";
 import { INFTData } from "../../../types";
@@ -9,11 +9,26 @@ interface INFTInfoDetailProps {
 }
 
 const NFTInfoDetail = ({ nft }: INFTInfoDetailProps): JSX.Element => {
+  const [ownerAddress, setOwnerAddress] = useState("");
+  const [creatorAddress, setCreatorAddress] = useState("");
+
+  useEffect(() => {
+    setOwnerAddress(
+      nft.collection_id.blockchain === "Avalanche"
+        ? nft.owner.evmaddress
+        : nft.owner.tezosaddress
+    );
+    setCreatorAddress(
+      nft.collection_id.blockchain === "Avalanche"
+        ? nft.userId.evmaddress
+        : nft.userId.tezosaddress
+    );
+  }, [nft]);
+
   return (
     <div>
       <h2 className="text-3xl font-bold font-serif mb-5">
-        {nft.metaData.name}{" "}
-        <span className="text-gray-600">#{nft.tokenId}</span>
+        {nft.name} <span className="text-gray-600">#{nft.tokenId}</span>
       </h2>
 
       <div className="flex flex-col">
@@ -35,28 +50,28 @@ const NFTInfoDetail = ({ nft }: INFTInfoDetailProps): JSX.Element => {
 
         <br />
 
-        {nft.ownerAddress && (
+        {ownerAddress && (
           <>
             {" "}
             <span className="text-gray-500">Détenteur</span>
             <a
               className="underline text-lg text-zinc-600"
-              href={`${BLOCK_EXPLORER_LINK}${nft.ownerAddress}`}
+              href={`${BLOCK_EXPLORER_LINK}${ownerAddress}`}
             >
-              {nft.ownerAddress && ellipseAddress(nft.ownerAddress, 10)}
+              {nft.ownerAddress && ellipseAddress(ownerAddress, 10)}
             </a>
           </>
         )}
 
-        {nft.creatorAddress && (
+        {creatorAddress && (
           <>
             {" "}
             <span className="text-gray-500">Créateur</span>
             <a
               className="underline text-lg text-zinc-600"
-              href={`${BLOCK_EXPLORER_LINK}${nft.ownerAddress}`}
+              href={`${BLOCK_EXPLORER_LINK}${creatorAddress}`}
             >
-              {nft.creatorAddress && ellipseAddress(nft.creatorAddress, 10)}
+              {nft.creatorAddress && ellipseAddress(creatorAddress, 10)}
             </a>
           </>
         )}
