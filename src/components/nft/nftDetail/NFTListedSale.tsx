@@ -112,7 +112,7 @@ const NFTListedSale = ({
       await buyNFT(
         collectionAddress as string,
         nft?._id,
-        utils.parseEther(bigNumberPrice).toString()
+        utils.parseEther(bigNumberPrice).mul(101).div(100).toString()
       )
         .then(async () => {
           createPurchaseBdd();

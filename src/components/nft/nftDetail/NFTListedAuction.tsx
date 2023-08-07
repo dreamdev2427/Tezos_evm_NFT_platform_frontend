@@ -123,7 +123,7 @@ const NFTListedAuction = ({
       return;
     }
 
-    const floatBid = Number.parseFloat(bid);
+    const floatBid = Number.parseFloat(bid) * 0.01;
 
     if (isNaN(floatBid) || floatBid <= ZERO) {
       alert("Le prix saisi doit être correct et ne peut être inférieur à 0");
@@ -132,7 +132,7 @@ const NFTListedAuction = ({
 
     setTxProcessing(true);
     try {
-      await createAuctionBid(nft?._id?.toString(), bid)
+      await createAuctionBid(nft?._id?.toString(), floatBid)
         .then(async () => {
           await createBidBdd(floatBid);
         })

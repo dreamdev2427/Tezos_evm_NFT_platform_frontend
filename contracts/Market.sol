@@ -271,11 +271,10 @@ contract Market is ReentrancyGuard {
     emit MarketItemBid(itemId, msg.sender, msg.value);
   }
 
-  function createAuctionSale(address nftContract, uint256 itemId)
-    external
-    payable
-    nonReentrant
-  {
+  function createAuctionSale(
+    address nftContract,
+    uint256 itemId
+  ) external payable nonReentrant {
     MarketItem storage currentItem = idToMarketItem[itemId];
     AuctionInfo storage currentInfo = auctionData[itemId];
 
@@ -317,11 +316,10 @@ contract Market is ReentrancyGuard {
     currentItem.sold = true;
   }
 
-  function createMarketSale(address nftContract, uint256 itemId)
-    public
-    payable
-    nonReentrant
-  {
+  function createMarketSale(
+    address nftContract,
+    uint256 itemId
+  ) public payable nonReentrant {
     MarketItem storage currentItem = idToMarketItem[itemId];
     // msg.value = currentItem.price;
 
