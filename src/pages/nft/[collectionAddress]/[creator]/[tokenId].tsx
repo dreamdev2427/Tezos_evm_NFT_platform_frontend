@@ -36,10 +36,10 @@ const NFT = (): JSX.Element => {
         },
       })
       .then((response) => {
-        setNft(response.data.data);
-        setNbLikes(response.data.data.likes?.length);
+        setNft(response.data?.data);
+        setNbLikes(response.data?.data?.likes?.length);
       })
-      .catch((error) => window.alert(error.response.data.error))
+      .catch((error) => window.alert(error.response?.data.error))
       .finally(() => setLoading(false));
   };
 
