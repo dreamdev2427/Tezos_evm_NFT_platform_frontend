@@ -170,7 +170,8 @@ const Mint = (): JSX.Element => {
             metadataURI: url,
             collectionId: userCollections.find(
               (item) =>
-                item.contractAddress.toLowerCase() === collection.toLowerCase()
+                item.collectionAddress.toLowerCase() ===
+                collection.toLowerCase()
             )._id,
             description,
             name,
