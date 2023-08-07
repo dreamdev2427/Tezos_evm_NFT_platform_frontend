@@ -58,7 +58,7 @@ const NFTInfoDetail = ({ nft }: INFTInfoDetailProps): JSX.Element => {
               className="underline text-lg text-zinc-600"
               href={`${BLOCK_EXPLORER_LINK}${ownerAddress}`}
             >
-              {nft.ownerAddress && ellipseAddress(ownerAddress, 10)}
+              {ownerAddress && ellipseAddress(ownerAddress, 10)}
             </a>
           </>
         )}
@@ -71,7 +71,7 @@ const NFTInfoDetail = ({ nft }: INFTInfoDetailProps): JSX.Element => {
               className="underline text-lg text-zinc-600"
               href={`${BLOCK_EXPLORER_LINK}${creatorAddress}`}
             >
-              {nft.creatorAddress && ellipseAddress(creatorAddress, 10)}
+              {creatorAddress && ellipseAddress(creatorAddress, 10)}
             </a>
           </>
         )}
