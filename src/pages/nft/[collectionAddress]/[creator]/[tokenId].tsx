@@ -25,9 +25,6 @@ const NFT = (): JSX.Element => {
   const [loading, setLoading] = useState(true);
   const [nbLikes, setNbLikes] = useState(0);
 
-  /**
-   * Fetch nft data by providing tokenId & collectionAddress
-   */
   const fetchNft = async (): Promise<void> => {
     setLoading(true);
 
@@ -39,8 +36,8 @@ const NFT = (): JSX.Element => {
         },
       })
       .then((response) => {
-        setNft(response.data);
-        setNbLikes(response.data.nbLikes);
+        setNft(response.data.data);
+        setNbLikes(response.data.data.likes?.length);
       })
       .catch((error) => window.alert(error.response.data.error))
       .finally(() => setLoading(false));
