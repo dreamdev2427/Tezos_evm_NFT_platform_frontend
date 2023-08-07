@@ -23,7 +23,7 @@ export const buyNFT = async (
 
   console.log("CREATE MARKET SALE :", nftPrice);
   await marketContract
-    .createMarketSale(NFTContractAddress, itemId, { value: nftPrice })
+    .createMarketSale(NFTContractAddress, itemId, { value: nftPrice?.toString() })
     .then(() => {})
     .catch((error) => {
       throw error;
