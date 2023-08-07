@@ -203,7 +203,9 @@ const Mint = (): JSX.Element => {
         userId: userAccount.id,
       })
       .then((response) => {
-        setUserCollections(response.data.data);
+        const collections = response.data.data;
+        setUserCollections(collections);
+        setCollection(collections[0]?.collectionAddress);
       })
       .catch((error) => window.alert(error.response.data.error))
       .finally(() => setLoading(false));
@@ -214,12 +216,6 @@ const Mint = (): JSX.Element => {
       loadUserCollections();
     }
   }, [userWallet, userAccount]);
-
-  useEffect(() => {
-    if (userCollections?.length > ZERO) {
-      setCollection(userCollections[0].contractAddress);
-    }
-  }, [userCollections, txProcessing]);
 
   if (loading) return <Loading />;
 
