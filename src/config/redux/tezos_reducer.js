@@ -54,4 +54,9 @@ const reducers = combineReducers({
   tokenData: tokenDataReducer,
 });
 const persistedReducer = persistReducer(persistConfig, reducers);
+
+export const selectTezosWallet = (state) => {
+  return state.tezosUser.walletConfig.user;
+};
+
 export default persistedReducer;

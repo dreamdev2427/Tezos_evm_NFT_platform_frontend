@@ -54,7 +54,7 @@ const NFTListed = ({
         </div>
       </div>
 
-      {nft.listing === "Auction" ? (
+      {nft.isSale === 2 ? (
         <NFTListedAuction
           collectionAddress={nft.collectionAddress}
           tokenId={nft.tokenId}

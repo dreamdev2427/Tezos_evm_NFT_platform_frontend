@@ -11,6 +11,7 @@ import TxProcessing from "../../TxProcessing";
 import { createAuctionBid, ZERO } from "../../../utils";
 import type { INFTData } from "../../../types";
 import BidsHistory from "./BidsHistory";
+import { selectTezosWallet } from "../../../config/redux/tezos_reducer";
 
 interface IAuctionRealTimeInfo {
   highestBid: number;
@@ -34,6 +35,7 @@ const NFTListedAuction = ({
   owner,
   nft,
 }: INFTListedAuctionProps): JSX.Element => {
+  const tezosWallet = useSelector(selectTezosWallet);
   const userAccount = useSelector(selectAccount);
   const userWallet = useSelector(selectWallet);
 
@@ -42,9 +44,6 @@ const NFTListedAuction = ({
   const [bid, setBid] = useState("0.0");
   const [txProcessing, setTxProcessing] = useState(false);
 
-  const [auctionLoading, setAuctionLoading] = useState(false);
-  const [marketItemId, setMarketItemId] = useState(0);
-
   const router = useRouter();
 
   /**
@@ -52,14 +51,14 @@ const NFTListedAuction = ({
    */
   const fetchAuctionInfo = async (): Promise<void> => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/market/auction`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/item/auction`, {
         params: {
           collectionAddress,
           tokenId,
         },
       })
       .then((response) => {
-        const info: IAuctionRealTimeInfo = response.data;
+        const info: IAuctionRealTimeInfo = response.data.data;
         setAuctionRealTimeInfo({
           highestBid: info.highestBid,
           endingTime: info.endingTime,
@@ -80,11 +79,10 @@ const NFTListedAuction = ({
     }
 
     axios
-      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/market/bid`, {
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/item/bid`, {
         bidder: userAccount.id,
         bid: floatBid,
-        collectionAddress,
-        tokenId,
+        itemId: nft?._id,
       })
       .then(() => {})
       .catch((error) => alert(error.response.data.error))
@@ -106,8 +104,18 @@ const NFTListedAuction = ({
 
     //<= including gas fess
     if (
+      nft?.collection_id?.blockchain === "Avalanche" &&
       Number.parseFloat(userWallet.balanceTemporary) <
-      auctionRealTimeInfo.highestBid
+        auctionRealTimeInfo.highestBid
+    ) {
+      alert("Pas assez de fonds");
+      return;
+    }
+
+    if (
+      nft?.collection_id?.blockchain === "Tezos" &&
+      Number.parseFloat(tezosWallet?.userBalance) <
+        auctionRealTimeInfo.highestBid
     ) {
       alert("Pas assez de fonds");
       return;
@@ -122,7 +130,7 @@ const NFTListedAuction = ({
 
     setTxProcessing(true);
     try {
-      await createAuctionBid(marketItemId.toString(), bid)
+      await createAuctionBid(nft?._id?.toString(), bid)
         .then(async () => {
           await createBidBdd(floatBid);
         })
@@ -149,36 +157,6 @@ const NFTListedAuction = ({
 
     return () => socket.disconnect(); //Clear socket
   });
-
-  const getAuctionMarketItem = async (): Promise<void> => {
-    setAuctionLoading(true);
-
-    axios
-      .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/market/auctionMarketItem`,
-        {
-          params: {
-            collectionAddress,
-            tokenId: nft.tokenId,
-          },
-        }
-      )
-      .then((response) => {
-        setMarketItemId(response.data);
-      })
-      .catch((error) => {
-        if (error.response !== undefined) alert(error.response.data.error);
-
-        alert(JSON.stringify(error));
-      })
-      .finally(() => setAuctionLoading(false));
-  };
-
-  useEffect(() => {
-    getAuctionMarketItem();
-  }, []);
-
-  if (auctionLoading) return <Loading />;
 
   return (
     <>

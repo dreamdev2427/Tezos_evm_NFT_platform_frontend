@@ -24,10 +24,22 @@ const NFTListedSale = ({
 
   const userAccount = useSelector(selectAccount);
   const userWallet = useSelector(selectWallet);
+  const [creatorAddress, setCreatorAddress] = useState("");
+  const [ownerAddress, setOwnerAddress] = useState("");
 
   const [txProcessing, setTxProcessing] = useState(false);
-  const [saleLoading, setSaleLoading] = useState(false);
-  const [marketItemId, setMarketItemId] = useState(0);
+
+  useEffect(() => {
+    if (nft) {
+      if (nft?.collection_id?.blockchain === "Avalanche") {
+        setOwnerAddress(nft?.owner?.evmaddress);
+        setCreatorAddress(nft?.userId?.evmaddress);
+      } else {
+        setOwnerAddress(nft?.owner?.tezosaddress);
+        setCreatorAddress(nft?.userId?.tezosaddress);
+      }
+    }
+  }, [nft]);
 
   /**
    * Create a purchase to the database
@@ -48,7 +60,7 @@ const NFTListedSale = ({
         window.alert(response.data.success);
         router.reload();
         router.push(
-          `/nft/${collectionAddress}/${nft.creatorAddress}/${nft.tokenId}`
+          `/nft/${collectionAddress}/${creatorAddress}/${nft.tokenId}`
         );
       })
       .catch((error) => window.alert(error.response.data.error))
@@ -76,7 +88,7 @@ const NFTListedSale = ({
       return;
     }
 
-    if (nft.ownerAddress === userAccount?.id) {
+    if (ownerAddress === userAccount?.id) {
       alert("Vous êtes le détenteur de cet NFT, vous ne pouvez pas l'acheter");
       return;
     }
@@ -86,7 +98,7 @@ const NFTListedSale = ({
     try {
       await buyNFT(
         collectionAddress as string,
-        marketItemId,
+        nft?._id,
         utils.parseEther(bigNumberPrice).toString()
       )
         .then(async () => {
@@ -103,64 +115,28 @@ const NFTListedSale = ({
   console.log(utils.parseEther(bigNumberPrice).toString());
   console.log(utils.parseUnits(bigNumberPrice.toString(), "ether"));
 
-  //CONSOLE LOG CREATE AND BUY TO COMPARE
-  const getSaleMarketItem = async (): Promise<void> => {
-    setSaleLoading(true);
-
-    axios
-      .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/market/saleMarketItem`,
-        {
-          params: {
-            collectionAddress,
-            tokenId: nft.tokenId,
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response);
-        setMarketItemId(response.data);
-      })
-      .catch((error) => {
-        if (error.response !== undefined) alert(error.response.data.error);
-
-        alert(JSON.stringify(error));
-      })
-      .finally(() => setSaleLoading(false));
-  };
-
-  useEffect(() => {
-    getSaleMarketItem();
-  }, []);
-
   return (
     <div className="flex justify-center">
       {txProcessing === true ? (
         <TxProcessing />
       ) : (
         <div className="flex flex-col w-full">
-          {saleLoading ? (
-            <Loading />
-          ) : (
-            <>
-              {" "}
-              <span className="mt-4">Prix</span>
-              <div className="flex">
-                <span className="text-6xl font-bold text-zinc-900">
-                  {nft.price}
-                </span>
-                <div className="flex flex-col justify-end">
-                  <span className="text-zinc-600 text-xl">AVAX</span>
-                </div>
-              </div>
-              <button
-                className="btn-primary font-bold text-2xl my-14 w-full"
-                onClick={(e) => onClickBuyNFT(e)}
-              >
-                Acheter
-              </button>
-            </>
-          )}
+          {" "}
+          <span className="mt-4">Prix</span>
+          <div className="flex">
+            <span className="text-6xl font-bold text-zinc-900">
+              {nft.price}
+            </span>
+            <div className="flex flex-col justify-end">
+              <span className="text-zinc-600 text-xl">AVAX</span>
+            </div>
+          </div>
+          <button
+            className="btn-primary font-bold text-2xl my-14 w-full"
+            onClick={(e) => onClickBuyNFT(e)}
+          >
+            Acheter
+          </button>
         </div>
       )}
     </div>
