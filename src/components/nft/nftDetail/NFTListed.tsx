@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { INFTData } from "../../../types";
-import { BLOCK_EXPLORER_LINK, ellipseAddress } from "../../../utils";
+import {
+  BLOCK_EXPLORER_LINK,
+  TEZOS_EXPLORER_LINK,
+  ellipseAddress,
+} from "../../../utils";
 import NFTListedAuction from "./NFTListedAuction";
 import NFTListedSale from "./NFTListedSale";
 
@@ -15,6 +19,21 @@ const NFTListed = ({
   collectionAddress,
   bigNumberPrice,
 }: INFTListedProps): JSX.Element => {
+  const [blockExplorer, setBlockExplorer] = useState("");
+  const [ownerAddress, setOwnerAddress] = useState("");
+
+  useEffect(() => {
+    if (nft) {
+      if (nft?.collection_id?.blockchain === "Avalanche") {
+        setOwnerAddress(nft?.owner?.evmaddress);
+        setBlockExplorer(BLOCK_EXPLORER_LINK);
+      } else {
+        setOwnerAddress(nft?.owner?.tezosaddress);
+        setBlockExplorer(TEZOS_EXPLORER_LINK);
+      }
+    }
+  }, [nft]);
+
   return (
     <>
       <div className="flex justify-between items-center  w-full">
@@ -22,9 +41,9 @@ const NFTListed = ({
           <span className="text-gray-500 self-start">Vendeur</span>
           <a
             className="underline text-lg text-zinc-600"
-            href={`${BLOCK_EXPLORER_LINK}${nft.ownerAddress}`}
+            href={`${blockExplorer}${ownerAddress}`}
           >
-            {nft.ownerAddress && ellipseAddress(nft.ownerAddress, 10)}
+            {ownerAddress && ellipseAddress(ownerAddress, 10)}
           </a>
         </div>
         <div className="flex flex-col ml-5">

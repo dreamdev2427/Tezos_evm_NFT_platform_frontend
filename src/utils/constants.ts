@@ -19,3 +19,5 @@ export const DATE_FORMAT = "YYYY-MM-DDTHH:mm:ss";
 
 //  BLOCK EXPLORER
 export const BLOCK_EXPLORER_LINK = "https://testnet.snowtrace.io/address/";
+
+export const TEZOS_EXPLORER_LINK = "https://ghostnet.tzkt.io/";
