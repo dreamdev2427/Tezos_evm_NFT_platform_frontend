@@ -238,11 +238,11 @@ const Mint = (): JSX.Element => {
 
       //  Find selected collection and increment its token id
       const tokenId =
-        userCollections.find((col) => col.contractAddress === collection)?.items
-          ?.length ?? 0;
+        userCollections.find((col) => col.collectionAddress === collection)
+          ?.items?.length ?? 0;
 
       const royaltiesCollection =
-        userCollections.find((col) => col.contractAddress === collection)
+        userCollections.find((col) => col.collectionAddress === collection)
           ?.royalties ?? 0;
       if (blockchainDapp === "Avalanche") {
         //  STORE TO THE BLOCKCHAIN
