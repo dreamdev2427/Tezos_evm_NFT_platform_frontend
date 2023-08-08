@@ -27,22 +27,20 @@ import {
   setBlockchainDapp,
   selectBlockchainDapp,
 } from "../config/redux/blockchainDapp";
-import {  
-  selectTezosWallet,
-} from "../config/redux/tezos_reducer.js";
-import {  
+import { selectTezosWallet } from "../config/redux/tezos_reducer.js";
+import {
   mintTezosNFT,
   fetchData,
-  _walletConfig 
+  _walletConfig,
 } from "../config/redux/tezos_actions.js";
 import config from "../config/redux/tezos_config";
 
 const apiKey =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEZmZjc1OWVjMDk5YUM1YTVEQTkxOGUzQjVDNzg0N0EwZUEyNjYyQ0QiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY2Nzg5OTI5MDM2NiwibmFtZSI6IkRldlBvcnRhbCJ9.-MRWyPn63qxGaYfZtU1P8Rzt74Q8t5VqMy0BiWh1vy4";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEZmZjc1OWVjMDk5YUM1YTVEQTkxOGUzQjVDNzg0N0EwZUEyNjYyQ0QiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY2Nzg5OTI5MDM2NiwibmFtZSI6IkRldlBvcnRhbCJ9.-MRWyPn63qxGaYfZtU1P8Rzt74Q8t5VqMy0BiWh1vy4";
 const client = new NFTStorage({ token: apiKey });
 
 const Mint = (): JSX.Element => {
-  const dispatch  = useDispatch();
+  const dispatch = useDispatch();
   const userWallet = useSelector(selectWallet);
   const userAccount = useSelector(selectAccount);
   const blockchainDapp = useSelector(selectBlockchainDapp);
@@ -77,15 +75,15 @@ const Mint = (): JSX.Element => {
     accept: [".png", ".jpg", ".jpeg"],
     multiple: false,
     readAs: "ArrayBuffer",
-});
+  });
 
-  const tezos_collection  = {
+  const tezos_collection = {
     _id: "64d12954f1a8a860b4d00524",
     bloakchain: "Tezos",
     collectionAddress: config.contractAddress,
     name: "Univeral Tezos Collection",
     description: "This is the test of Maksym5",
-  }
+  };
 
   useEffect(() => {
     (async () => {
@@ -111,11 +109,12 @@ const Mint = (): JSX.Element => {
       if (activeAccount) {
         const userAddress = await wallet_instance.getPKH();
         const balance = await Tezos.tz.getBalance(userAddress);
-       dispatch(
+        dispatch(
           _walletConfig({
             userAddress: userAddress,
             balance: balance.toNumber(),
-          }))
+          })
+        );
       }
       setWallet(wallet_instance);
     })();
@@ -239,71 +238,69 @@ const Mint = (): JSX.Element => {
 
       //  Find selected collection and increment its token id
       const tokenId =
-        userCollections.find((col) => col.contractAddress === collection)
-          ?.nbNfts ?? 0;
+        userCollections.find((col) => col.contractAddress === collection)?.items
+          ?.length ?? 0;
 
       const royaltiesCollection =
         userCollections.find((col) => col.contractAddress === collection)
           ?.royalties ?? 0;
-      if(blockchainDapp === "Avalanche")
-      {
-      //  STORE TO THE BLOCKCHAIN
-      await mint(url, Math.ceil(royaltiesCollection), collection)
-        .then(async () => {
-          const data = {
-            image: imgaeurl,
-            tokenId: Number(tokenId) + Number(1),
-            collectionAddress: collection,
-            userId: userAccount.id,
-            owner: userAccount.id,
-            metadataURI: url,
-            collectionId: userCollections.find(
-              (item) =>
-                item.collectionAddress.toLowerCase() ===
-                collection.toLowerCase()
-            )._id,
-            description,
-            name,
-          };
+      if (blockchainDapp === "Avalanche") {
+        //  STORE TO THE BLOCKCHAIN
+        await mint(url, Math.ceil(royaltiesCollection), collection)
+          .then(async () => {
+            const data = {
+              image: imgaeurl,
+              tokenId: Number(tokenId) + Number(1),
+              collectionAddress: collection,
+              userId: userAccount.id,
+              owner: userAccount.id,
+              metadataURI: url,
+              collectionId: userCollections.find(
+                (item) =>
+                  item.collectionAddress.toLowerCase() ===
+                  collection.toLowerCase()
+              )._id,
+              description,
+              name,
+            };
 
-          await mintToBdd(data);
-        })
-        .finally(() => setTxProcessing(false));
-      }
-      else {        
-          
-      const ipfsData = {
-        name,
-        description,
-        decimals: 0,
-              symbol: name,
-        image: imgaeurl,
-      };
-      const added = await pinJSONToIPFS(ipfsData);
-      const url = `${process.env.NEXT_PUBLIC_IPFS_GATEWAY}${added}`;
-      const data = {
-        image: imgaeurl,
-        tokenId: Number(tokenId) + Number(1),
-        collectionAddress: collection,
-        userId: userAccount.id,
-        owner: userAccount.id,
-        metadataURI: url,
-        collectionId: userCollections.find(
-          (item) =>
-            item.collectionAddress.toLowerCase() ===
-            collection.toLowerCase()
-        )._id,
-        description,
-        name,
-      };
-          dispatch(mintTezosNFT({ Tezos, amount: nbSeries, metadata: url, data }));
-          
-          setNftFile(undefined);
-          setDescription("");
-          setName("");
-          setNftPreview("");
-  
-          setTxProcessing(false);
+            await mintToBdd(data);
+          })
+          .finally(() => setTxProcessing(false));
+      } else {
+        const ipfsData = {
+          name,
+          description,
+          decimals: 0,
+          symbol: name,
+          image: imgaeurl,
+        };
+        const added = await pinJSONToIPFS(ipfsData);
+        const url = `${process.env.NEXT_PUBLIC_IPFS_GATEWAY}${added}`;
+        const data = {
+          image: imgaeurl,
+          tokenId: Number(tokenId) + Number(1),
+          collectionAddress: collection,
+          userId: userAccount.id,
+          owner: userAccount.id,
+          metadataURI: url,
+          collectionId: userCollections.find(
+            (item) =>
+              item.collectionAddress.toLowerCase() === collection.toLowerCase()
+          )._id,
+          description,
+          name,
+        };
+        dispatch(
+          mintTezosNFT({ Tezos, amount: nbSeries, metadata: url, data })
+        );
+
+        setNftFile(undefined);
+        setDescription("");
+        setName("");
+        setNftPreview("");
+
+        setTxProcessing(false);
       }
     } catch (error) {
       window.alert(`Error creating NFT : ${error}`);
@@ -321,24 +318,23 @@ const Mint = (): JSX.Element => {
     }
 
     setLoading(true);
-    if(blockchainDapp === "Avalanche")
-    {
-    axios
-      .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/collection/user`, {
-        userId: userAccount.id,
-      })
-      .then((response) => {
-        const collections = response.data.data;
-        setUserCollections(collections);
-        setCollection(collections[0]?.collectionAddress);
-      })
-      .catch((error) => window.alert(error.response.data.error))
-      .finally(() => setLoading(false));
-    }else {
+    if (blockchainDapp === "Avalanche") {
+      axios
+        .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/collection/user`, {
+          userId: userAccount.id,
+        })
+        .then((response) => {
+          const collections = response.data.data;
+          setUserCollections(collections);
+          setCollection(collections[0]?.collectionAddress);
+        })
+        .catch((error) => window.alert(error.response.data.error))
+        .finally(() => setLoading(false));
+    } else {
       setUserCollections([tezos_collection]);
       setCollection(tezos_collection.collectionAddress);
-      
-    setLoading(false);
+
+      setLoading(false);
     }
   };
 
