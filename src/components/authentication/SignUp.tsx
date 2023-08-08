@@ -35,11 +35,6 @@ const SignUp = ({ switchToSignIn, closeModal }): JSX.Element => {
       return;
     }
 
-    if (!userWallet) {
-      alert("Pas d'utilisateur connecté");
-      return;
-    }
-
     setLoading(true);
     axios
       .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/user/create`, {
@@ -50,7 +45,7 @@ const SignUp = ({ switchToSignIn, closeModal }): JSX.Element => {
         birthDate,
         isArtist,
         evmaddress: userWallet?.address || Date.now.toString(),
-        tezosaddress: tezosAccount?.userAddress || Date.now.toString() + 1
+        tezosaddress: tezosAccount?.userAddress || Date.now.toString() + 1,
       })
       .then(() => {
         alert("Compte crée !");

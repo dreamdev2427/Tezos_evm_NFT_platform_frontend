@@ -27,11 +27,6 @@ const SignIn = ({ switchToSignUp, closeModal }): JSX.Element => {
   ): void => {
     event.preventDefault();
 
-    if (!userWallet) {
-      alert("Veuillez vous authentifier sur votre wallet d'abord");
-      return;
-    }
-
     axios
       .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/user/login`, {
         email,
