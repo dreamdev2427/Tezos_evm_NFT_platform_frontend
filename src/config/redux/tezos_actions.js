@@ -112,76 +112,85 @@ export function bytes2Char(hex) {
   return Buffer.from(hex2buf(hex)).toString("utf8");
 }
 
-// Nous exportons une fonction asynchrone fetchData qui ne prend pas de paramètres
+// We export an asynchronous fetchData function that takes no parameters
 export const fetchData = () => {
-  // Cette fonction renvoie une autre fonction asynchrone qui prend comme argument 'dispatch',
-  // une fonction fournie par Redux pour envoyer des actions au store
+  // This function returns another asynchronous function which takes as argument 'dispatch',
+  // a function provided by Redux to send actions to the store
   return async (dispatch) => {
     try {
-      // Nous utilisons axios pour faire une requête GET vers l'API TzKT en utilisant
-      // l'adresse du contrat spécifié dans notre fichier de configuration
+      // We use axios to make a GET request to the TzKT API using
+      // the address of the contract specified in our configuration file
       const response = await axios.get(
         `https://api.ghostnet.tzkt.io/v1/contracts/${config.contractAddress}/bigmaps/data/keys`
       );
-      // Nous faisons une autre requête GET pour récupérer les métadonnées du token
+      // We make another GET request to retrieve the token metadata
       const response1 = await axios.get(
         `https://api.ghostnet.tzkt.io/v1/contracts/${config.tokenAddress}/bigmaps/token_metadata/keys`
       );
-      // Nous stockons les données renvoyées par les deux requêtes
+      // We store the data returned by the two queries
       const d1 = response.data;
       const d2 = response1.data;
-      // Nous initialisons un tableau vide pour stocker les données du token
+      // We initialize an empty array to store the token data
       let tokenData = [];
-      // Nous parcourons les données récupérées
+      // We browse the retrieved data
       for (let i = 0; i < d1.length; i++) {
-        // Nous transformons les bytes en caractères et récupérons la dernière partie du string
+       // We transform the bytes into characters and get the last part of the string
         const s = bytes2Char(d2[i].value.token_info[""]).split("//").at(-1);
-        // Nous faisons une requête GET pour récupérer les données à partir de l'URL IPFS
+        // We make a GET request to retrieve the data from the IPFS URL
         const res = await axios.get("https://ipfs.io/ipfs/" + s);
-        // Nous stockons les données de la première requête et les données de la requête IPFS
+        // We store the data from the first request and the data from the IPFS request
         const l1 = d1[i].value;
         const l2 = res.data;
-        // Nous ajoutons ces données à notre tableau tokenData
+        // We add this data to our tokenData array
         tokenData[i] = {
           ...l1,
           ...l2,
           token_id: d2[i].value.token_id,
         };
       }
-      // Nous affichons les données du token dans la console
+      // We display the token data in the console
       console.log(tokenData);
-      // Nous envoyons les données du token au store Redux
+      // We send the token data to the Redux store
       dispatch({ type: "SET_TOKEN_DATA", payload: tokenData });
     } catch (e) {
-      // Si une erreur se produit, nous l'affichons dans la console
+      // If an error occurs, we display it in the console
       console.log(e);
     }
   };
 };
 
-// Exportation d'une fonction asynchrone 'mintNFT' qui prend en argument un objet contenant
-// l'instance Tezos, la quantité (amount) et les métadonnées (metadata) du token à émettre
-export const mintNFT = ({ Tezos, amount, metadata }) => {
-  // La fonction retourne une autre fonction asynchrone qui prend 'dispatch' comme argument,
-  // une fonction fournie par Redux pour envoyer des actions au store
+// Export an asynchronous function 'mintNFT' which takes as argument an object containing
+// the Tezos instance, the quantity (amount) and the metadata (metadata) of the token to be issued
+export const mintTezosNFT = ({ Tezos, amount, metadata, data }) => {
+  // The function returns another asynchronous function that takes 'dispatch' as an argument,
+  // a function provided by Redux to send actions to the store
   return async (dispatch) => {
     try {
-      // Récupération du contrat à l'aide de l'adresse spécifiée dans le fichier de configuration
+      // Retrieve the contract using the address specified in the configuration file
       const contract = await Tezos.wallet.at(config.contractAddress);
       let bytes = "";
-      // Parcours des métadonnées et conversion de chaque caractère en une valeur hexadécimale
+      // Traverse the metadata and convert each character to a hexadecimal value
       for (var i = 0; i < metadata.length; i++) {
         bytes += metadata.charCodeAt(i).toString(16).slice(-4);
       }
-      // Appel de la méthode 'mint' du contrat avec la quantité et les métadonnées converties en hexadécimal,
-      // puis envoi de la transaction sur le réseau
+      // Call of the 'mint' method of the contract with the quantity and the metadata converted into hexadecimal,
+      // then send the transaction on the network
       const op = await contract.methods.mint(amount, bytes).send();
-      // Attente de la confirmation de la transaction
+      // Wait for transaction confirmation
       await op.confirmation();
-      // Récupération des données mises à jour du contrat à l'aide de la fonction 'fetchData'
+      window.alert("Succeed in minting!");
+      
+        //STORE TO THE DB
+        await axios
+          .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/nft/`, { ...data })
+          .then(() => {
+          })
+          .catch((error) => window.alert(error.response?.data?.error))
+
+      // Fetch updated contract data using 'fetchData' function
       dispatch(fetchData());
     } catch (e) {
-      // Si une erreur se produit, elle est affichée dans la console
+      // If an error occurs, it is displayed in the console
       console.log(e);
     }
   };

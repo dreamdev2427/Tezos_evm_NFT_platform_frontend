@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "rc-slider/assets/index.css";
 import Compressor from "compressorjs";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { ImUpload2 } from "react-icons/im";
 import { selectWallet, selectAccount } from "../config/redux/userAccount";
 import { mint, ZERO } from "../utils";
@@ -13,10 +13,46 @@ import CreateCollectionModal from "../components/collection/CreateCollectionModa
 import NFTPreview from "../components/nft/NFTPreview";
 import NotLogged from "../components/NotLogged";
 import { pinFileToIPFS, pinJSONToIPFS } from "../utils/pinatasdk";
+import { useFilePicker } from "use-file-picker";
+import { NFTStorage, File } from "nft.storage";
+import { TezosToolkit } from "@taquito/taquito";
+import { BeaconWallet } from "@taquito/beacon-wallet";
+import {
+  NetworkType,
+  BeaconEvent,
+  defaultEventCallbacks,
+  ColorMode,
+} from "@airgap/beacon-sdk";
+import {
+  setBlockchainDapp,
+  selectBlockchainDapp,
+} from "../config/redux/blockchainDapp";
+import {  
+  selectTezosWallet,
+} from "../config/redux/tezos_reducer.js";
+import {  
+  mintTezosNFT,
+  fetchData,
+  _walletConfig 
+} from "../config/redux/tezos_actions.js";
+import config from "../config/redux/tezos_config";
+
+const apiKey =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEZmZjc1OWVjMDk5YUM1YTVEQTkxOGUzQjVDNzg0N0EwZUEyNjYyQ0QiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY2Nzg5OTI5MDM2NiwibmFtZSI6IkRldlBvcnRhbCJ9.-MRWyPn63qxGaYfZtU1P8Rzt74Q8t5VqMy0BiWh1vy4";
+const client = new NFTStorage({ token: apiKey });
 
 const Mint = (): JSX.Element => {
+  const dispatch  = useDispatch();
   const userWallet = useSelector(selectWallet);
   const userAccount = useSelector(selectAccount);
+  const blockchainDapp = useSelector(selectBlockchainDapp);
+  const tezosAccount = useSelector(selectTezosWallet);
+
+  const [wallet, setWallet] = useState(null);
+
+  const [Tezos, setTezos] = useState(
+    new TezosToolkit("https://ghostnet.smartpy.io/")
+  );
 
   //  NFT
   const [nftFile, setNftFile] = useState<File>();
@@ -36,6 +72,58 @@ const Mint = (): JSX.Element => {
   const [ipfsFile, setIpfsFile] = useState("");
 
   const [userCollections, setUserCollections] = useState<ICollection[]>([]);
+
+  const [openFileSelector, { filesContent }] = useFilePicker({
+    accept: [".png", ".jpg", ".jpeg"],
+    multiple: false,
+    readAs: "ArrayBuffer",
+});
+
+  const tezos_collection  = {
+    _id: "64d12954f1a8a860b4d00524",
+    bloakchain: "Tezos",
+    collectionAddress: config.contractAddress,
+    name: "Univeral Tezos Collection",
+    description: "This is the test of Maksym5",
+  }
+
+  useEffect(() => {
+    (async () => {
+      const wallet_instance = new BeaconWallet({
+        name: "NFT Marketplace",
+        preferredNetwork: NetworkType.GHOSTNET,
+        colorMode: ColorMode.LIGHT,
+        disableDefaultEvents: false, // Disable all events / UI. This also disables the pairing alert.
+        eventHandlers: {
+          // To keep the pairing alert, we have to add the following default event handlers back
+          [BeaconEvent.PAIR_INIT]: {
+            handler: defaultEventCallbacks.PAIR_INIT,
+          },
+          [BeaconEvent.PAIR_SUCCESS]: {
+            handler: (data) => {
+              return data.publicKey;
+            },
+          },
+        },
+      });
+      Tezos.setWalletProvider(wallet_instance);
+      const activeAccount = await wallet_instance.client.getActiveAccount();
+      if (activeAccount) {
+        const userAddress = await wallet_instance.getPKH();
+        const balance = await Tezos.tz.getBalance(userAddress);
+       dispatch(
+          _walletConfig({
+            userAddress: userAddress,
+            balance: balance.toNumber(),
+          }))
+      }
+      setWallet(wallet_instance);
+    })();
+  }, [Tezos, dispatch]);
+
+  useEffect(() => {
+    fetchData({ Tezos })(dispatch);
+  }, [Tezos, dispatch]);
 
   function openCreateCollectionModal(): void {
     setModalIsOpen(true);
@@ -157,12 +245,13 @@ const Mint = (): JSX.Element => {
       const royaltiesCollection =
         userCollections.find((col) => col.contractAddress === collection)
           ?.royalties ?? 0;
-
+      if(blockchainDapp === "Avalanche")
+      {
       //  STORE TO THE BLOCKCHAIN
       await mint(url, Math.ceil(royaltiesCollection), collection)
         .then(async () => {
           const data = {
-            image: ipfsFile,
+            image: imgaeurl,
             tokenId: Number(tokenId) + Number(1),
             collectionAddress: collection,
             userId: userAccount.id,
@@ -180,6 +269,42 @@ const Mint = (): JSX.Element => {
           await mintToBdd(data);
         })
         .finally(() => setTxProcessing(false));
+      }
+      else {        
+          
+      const ipfsData = {
+        name,
+        description,
+        decimals: 0,
+              symbol: name,
+        image: imgaeurl,
+      };
+      const added = await pinJSONToIPFS(ipfsData);
+      const url = `${process.env.NEXT_PUBLIC_IPFS_GATEWAY}${added}`;
+      const data = {
+        image: imgaeurl,
+        tokenId: Number(tokenId) + Number(1),
+        collectionAddress: collection,
+        userId: userAccount.id,
+        owner: userAccount.id,
+        metadataURI: url,
+        collectionId: userCollections.find(
+          (item) =>
+            item.collectionAddress.toLowerCase() ===
+            collection.toLowerCase()
+        )._id,
+        description,
+        name,
+      };
+          dispatch(mintTezosNFT({ Tezos, amount: nbSeries, metadata: url, data }));
+          
+          setNftFile(undefined);
+          setDescription("");
+          setName("");
+          setNftPreview("");
+  
+          setTxProcessing(false);
+      }
     } catch (error) {
       window.alert(`Error creating NFT : ${error}`);
     }
@@ -196,6 +321,8 @@ const Mint = (): JSX.Element => {
     }
 
     setLoading(true);
+    if(blockchainDapp === "Avalanche")
+    {
     axios
       .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/collection/user`, {
         userId: userAccount.id,
@@ -207,6 +334,12 @@ const Mint = (): JSX.Element => {
       })
       .catch((error) => window.alert(error.response.data.error))
       .finally(() => setLoading(false));
+    }else {
+      setUserCollections([tezos_collection]);
+      setCollection(tezos_collection.collectionAddress);
+      
+    setLoading(false);
+    }
   };
 
   useEffect(() => {

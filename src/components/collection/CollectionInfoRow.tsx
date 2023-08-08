@@ -25,7 +25,7 @@ const CollectionInfoRow = ({
           }
           aria-hidden={true}
         >
-          {collectionInfo?.name.toUpperCase() || "Nom collection"}
+          {collectionInfo?.name?.toUpperCase() || "Nom collection"}
         </h2>
 
         <span className="text-xl text-zinc-800 my-2">

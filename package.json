@@ -23,6 +23,7 @@
     "dayjs": "^1.11.3",
     "jwt-decode": "^3.1.2",
     "next": "12.0.7",
+    "nft.storage": "^7.1.1",
     "rc-slider": "^9.7.5",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -36,6 +37,7 @@
     "redux-thunk": "^2.4.2",
     "socket.io-client": "^4.5.1",
     "swiper": "^8.2.4",
+    "use-file-picker": "^1.7.0",
     "walletlink": "^2.5.0",
     "web3modal": "^1.9.5"
   },

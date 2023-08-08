@@ -29,10 +29,10 @@ const Market = (): JSX.Element => {
         startIndex: 1,
       })
       .then((response) => {
-        setAllCollections(response.data.data);
+        setAllCollections(response?.data?.data);
         setCollectionsLoading(false);
       })
-      .catch((error) => window.alert(error.response.data.error));
+      .catch((error) => window.alert(error.response?.data?.error));
   };
 
   /**
@@ -43,8 +43,8 @@ const Market = (): JSX.Element => {
 
     axios
       .post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/nft/marketItems`)
-      .then((response) => setListedNFTs(response.data.data))
-      .catch((error) => window.alert(error.response.data.error))
+      .then((response) => setListedNFTs(response?.data?.data))
+      .catch((error) => window.alert(error.response?.data?.error))
       .finally(() => setNftLoading(false));
   };
 
@@ -80,9 +80,9 @@ const Market = (): JSX.Element => {
       <div className="flex flex-wrap justify-center m-5 p-5 w-full">
         {!collectionsLoading ? (
           <Carousel itemsLength={allCollections.length}>
-            {allCollections.slice(0, 10).map((collection) => {
+            {allCollections.slice(0, 10).map((collection, index) => {
               return (
-                <SwiperSlide key={collection.collectionAddress}>
+                <SwiperSlide key={index}>
                   <CollectionCard
                     key={collection.collectionAddress}
                     imageSrc={collection.image}

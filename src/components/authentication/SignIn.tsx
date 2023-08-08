@@ -56,7 +56,7 @@ const SignIn = ({ switchToSignUp, closeModal }): JSX.Element => {
           alert("Failed in login!");
         }
       })
-      .catch((error) => window.alert(error.response.data.error));
+      .catch((error) => window.alert(error?.response?.data?.error));
   };
 
   return (
