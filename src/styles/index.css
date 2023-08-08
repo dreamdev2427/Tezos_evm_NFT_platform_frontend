@@ -91,7 +91,6 @@ input[type="file"] {
 }
 
 .layout {
-  z-index: 0;
   max-width: 96.75rem;
   width: 96%;
   margin-left: auto;

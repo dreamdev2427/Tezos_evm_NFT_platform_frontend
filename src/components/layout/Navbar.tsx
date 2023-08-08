@@ -304,10 +304,7 @@ export const Navbar = (): JSX.Element => {
   };
 
   return (
-    <nav
-      className="flex items-center justify-between flex-wrap text-white bg-zinc-900 py-10 px-5 sticky top-0"
-      style={{ zIndex: 10 }}
-    >
+    <nav className="flex items-center justify-between flex-wrap text-white bg-zinc-900 py-10 px-5 sticky top-0">
       <Link href="/home">
         <span className="inline-flex p-2 mr-4 font-extrabold text-sm xl:text-xl text-white cursor-pointer">
           NFT MARKETPLACE
