@@ -51,7 +51,7 @@ const SignIn = ({ switchToSignUp, closeModal }): JSX.Element => {
   return (
     <>
       <div
-        className="fixed top-0 left-0 h-screen w-screen bg-opacity-75 bg-gray-800 z-40"
+        className="fixed top-0 left-0 h-screen w-screen bg-opacity-75 bg-gray-800 z-1000"
         onClick={closeModal}
         aria-hidden={true}
       />
