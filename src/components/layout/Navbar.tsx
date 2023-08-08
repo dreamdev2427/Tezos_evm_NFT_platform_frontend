@@ -62,10 +62,10 @@ import Disconnect from "../authentication/Disconnect";
 export const Navbar = (): JSX.Element => {
   const dispatch = useDispatch();
   const blockchainDapp = useSelector(selectBlockchainDapp);
-  const userAccount = useSelector(selectAccount);
   const tezosAccount = useSelector(
     (state) => state.tezosUser.walletConfig.user
   );
+  const userAccount = useSelector(selectAccount);
   const [Tezos, setTezos] = useState(
     new TezosToolkit("https://ghostnet.smartpy.io/")
   );
@@ -159,10 +159,12 @@ export const Navbar = (): JSX.Element => {
       if (activeAccount) {
         const userAddress = await wallet_instance.getPKH();
         const balance = await Tezos.tz.getBalance(userAddress);
-        _walletConfig({
-          userAddress: userAddress,
-          balance: balance.toNumber(),
-        })(dispatch);
+        dispatch(
+          _walletConfig({
+            userAddress: userAddress,
+            balance: balance.toNumber(),
+          })
+        );
       }
       console.log("wallet_instance >>>> ", wallet_instance);
       setWallet(wallet_instance);

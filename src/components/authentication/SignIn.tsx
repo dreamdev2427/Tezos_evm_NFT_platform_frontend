@@ -8,8 +8,13 @@ import {
 } from "../../config/redux/userAccount";
 import jwt_decode from "jwt-decode";
 import axios from "../../config/axios";
+import { selectBlockchainDapp } from "../../config/redux/blockchainDapp";
 
 const SignIn = ({ switchToSignUp, closeModal }): JSX.Element => {
+  const blockchainDapp = useSelector(selectBlockchainDapp);
+  const tezosAccount = useSelector(
+    (state) => state.tezosUser.walletConfig.user
+  );
   const userAccount = useSelector(selectAccount);
   const userWallet = useSelector(selectWallet);
 
@@ -26,7 +31,10 @@ const SignIn = ({ switchToSignUp, closeModal }): JSX.Element => {
   ): void => {
     event.preventDefault();
 
-    if (!userWallet) {
+    if (
+      (!userWallet && blockchainDapp === "Avalanche") ||
+      (!tezosAccount && blockchainDapp === "Tezos")
+    ) {
       alert("Veuillez vous authentifier sur votre wallet d'abord");
       return;
     }

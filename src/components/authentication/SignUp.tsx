@@ -3,8 +3,13 @@ import { useSelector } from "react-redux";
 import { selectWallet } from "../../config/redux/userAccount";
 import axios from "../../config/axios";
 import TxProcessing from "../TxProcessing";
+import { selectBlockchainDapp } from "../../config/redux/blockchainDapp";
 
 const SignUp = ({ switchToSignIn, closeModal }): JSX.Element => {
+  const blockchainDapp = useSelector(selectBlockchainDapp);
+  const tezosAccount = useSelector(
+    (state) => state.tezosUser.walletConfig.user
+  );
   const userWallet = useSelector(selectWallet);
 
   const [firstName, setFirstName] = useState("");
@@ -18,9 +23,6 @@ const SignUp = ({ switchToSignIn, closeModal }): JSX.Element => {
     useState(true);
 
   const [loading, setLoading] = useState(false);
-  const tezosAccount = useSelector(
-    (state) => state.tezosUser.walletConfig.user
-  );
 
   /**
    * Create a new user
@@ -35,7 +37,10 @@ const SignUp = ({ switchToSignIn, closeModal }): JSX.Element => {
       return;
     }
 
-    if (!userWallet) {
+    if (
+      (!userWallet && blockchainDapp === "Avalanche") ||
+      (!tezosAccount && blockchainDapp === "Tezos")
+    ) {
       alert("Pas d'utilisateur connecté");
       return;
     }
@@ -50,7 +55,7 @@ const SignUp = ({ switchToSignIn, closeModal }): JSX.Element => {
         dateOfBirth: birthDate,
         isArtist,
         evmaddress: userWallet?.address || "",
-        tezosaddress: tezosAccount?.userAddress || ""
+        tezosaddress: tezosAccount?.userAddress || "",
       })
       .then(() => {
         alert("Compte crée ! \n You're registered.");
@@ -78,9 +83,9 @@ const SignUp = ({ switchToSignIn, closeModal }): JSX.Element => {
       .then((response) => {
         setAddressAlreadyRegistered(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
-    })
+      });
   };
 
   useEffect(() => {

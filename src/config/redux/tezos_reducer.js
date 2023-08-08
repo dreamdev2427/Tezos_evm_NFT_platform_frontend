@@ -10,7 +10,7 @@ const persistConfig = {
 const initialWalletState = {
   user: {
     userAddress: "",
-    userBalance: 0,
+    balance: 0,
   },
 };
 

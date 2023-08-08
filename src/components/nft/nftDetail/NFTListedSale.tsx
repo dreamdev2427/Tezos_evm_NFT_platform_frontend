@@ -94,7 +94,7 @@ const NFTListedSale = ({
 
     if (
       nft?.collection_id?.blockchain === "Tezos" &&
-      Number.parseFloat(tezosWallet?.userBalance) <
+      Number.parseFloat(tezosWallet?.balance) <
         Number.parseFloat(bigNumberPrice)
     ) {
       alert("Pas assez de fonds");

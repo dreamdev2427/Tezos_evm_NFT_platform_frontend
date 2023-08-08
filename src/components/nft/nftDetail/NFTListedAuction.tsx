@@ -116,8 +116,7 @@ const NFTListedAuction = ({
 
     if (
       nft?.collection_id?.blockchain === "Tezos" &&
-      Number.parseFloat(tezosWallet?.userBalance) <
-        auctionRealTimeInfo.highestBid
+      Number.parseFloat(tezosWallet?.balance) < auctionRealTimeInfo.highestBid
     ) {
       alert("Pas assez de fonds");
       return;
